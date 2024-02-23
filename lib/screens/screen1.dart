@@ -1,40 +1,20 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:safedrive/screens/screen1.dart';
-import 'package:safedrive/screens/splash_screen.dart';
-import 'app/app_colors.dart';
-import 'app/app_images.dart';
-import 'app/app_texts.dart';
-import 'presenation/components/custom_bottom.dart';
+import 'package:safedrive/screens/screen2.dart';
+import '../app/app_colors.dart';
+import '../app/app_images.dart';
+import '../app/app_texts.dart';
+import '../presenation/components/custom_bottom.dart';
 
-void main() => runApp(const MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Screen1 extends StatefulWidget {
+  const Screen1({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ScreenUtilInit(
-        designSize: const Size(375, 812),
-        splitScreenMode: true,
-        builder: (_, child) {
-          return const MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: Splash(),
-          );
-        });
-  }
+  State<Screen1> createState() => _Screen1State();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _Screen1State extends State<Screen1> {
   int currentIndex = 0;
 
   List imgList = [
@@ -58,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
             CarouselSlider(
               options: CarouselOptions(
                   height: 260.h,
-                  initialPage: 0,
+                  initialPage: 1,
                   enlargeCenterPage: true,
                   onPageChanged: (index, _) {
                     setState(() {
@@ -68,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
               items: imgList.map((imageUrl) {
                 return Padding(
                   padding: const EdgeInsets.only(
-                    left: 40,
+                    left: 50
                   ),
                   child: Image.asset(imageUrl, fit: BoxFit.fill),
                 );
@@ -80,26 +60,28 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                buildContainer(0),
                 buildContainer(1),
+                buildContainer(0),
               ],
             ),
             SizedBox(
               height: 70.h,
             ),
             const Text(
-              AppText.before,
+              AppText.let,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
             const Text(
-              AppText.remember,
+              AppText.a,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
-            SizedBox(height: 50.h),
+            SizedBox(
+              height: 50.h,
+            ),
             CustomButton(
-              navScreen: const Screen1(),
+              navScreen: const Screen2(),
               selectText: AppText.next,
             ),
           ],
