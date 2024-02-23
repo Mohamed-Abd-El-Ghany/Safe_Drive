@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:safedrive/screens/screen2.dart';
+import 'package:safedrive/screens/opening2.dart';
 import '../app/app_colors.dart';
 import '../app/app_images.dart';
 import '../app/app_texts.dart';
