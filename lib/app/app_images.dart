@@ -7,4 +7,5 @@ class AppImages {
   static const String pic5 = '${imagePath}pic5.png';
   static const String pic6 = '${imagePath}pic6.png';
   static const String pic7 = '${imagePath}pic7.png';
+  static const String busPic = '${imagePath}rafiki.png';
 }
