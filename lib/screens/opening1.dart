@@ -5,7 +5,7 @@ import 'package:safedrive/screens/opening2.dart';
 import '../app/app_colors.dart';
 import '../app/app_images.dart';
 import '../app/app_texts.dart';
-import '../presenation/components/custom_bottom.dart';
+import '../presenation/components/custom_button.dart';
 
 class Screen1 extends StatefulWidget {
   const Screen1({super.key});

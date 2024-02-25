@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:safedrive/screens/face_Id.dart';
 import '../app/app_colors.dart';
 import '../app/app_images.dart';
 import '../app/app_texts.dart';
-import '../presenation/components/custom_bottom.dart';
+import '../presenation/components/custom_button.dart';
 import 'login.dart';
 
 class Screen2 extends StatefulWidget {
@@ -52,7 +51,7 @@ class _Screen2State extends State<Screen2> {
             ),
             SizedBox(height: 70.h),
             CustomButton(
-              navScreen: const Login(),
+              navScreen: const LoginScreen(),
               selectText: AppText.let2,
             ),
           ],
