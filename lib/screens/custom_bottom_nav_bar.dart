@@ -21,6 +21,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     const NotificationScreen(),
     const ProfileScreen()
   ];
+
   void changeItem(int value) {
     print(value);
     setState(() {
@@ -58,6 +59,4 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ),
     );
   }
-
-
 }
