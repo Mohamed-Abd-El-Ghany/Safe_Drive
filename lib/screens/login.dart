@@ -6,7 +6,7 @@ import 'package:safedrive/app/app_images.dart';
 import 'package:safedrive/app/app_texts.dart';
 import 'package:safedrive/presenation/components/custom_button.dart';
 import 'package:safedrive/presenation/components/custom_text_field.dart';
-import 'package:safedrive/screens/home_screen.dart';
+import 'package:safedrive/screens/custom_bottom_nav_bar.dart';
 import 'package:safedrive/screens/sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -115,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 20.h,
                 ),
                 CustomButton(
-                  navScreen: const HomeScreen(),
+                  navScreen:  const BottomNavBar(),
                   selectText: AppText.login,
                   height: 60.h,
                   width: 80.w,

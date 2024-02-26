@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:safedrive/screens/custom_bottom_nav_bar.dart';
 import 'package:safedrive/screens/opening1.dart';
-import 'package:safedrive/screens/splash_screen.dart';
 import 'app/app_colors.dart';
 import 'app/app_images.dart';
 import 'app/app_texts.dart';
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         builder: (_, child) {
           return const MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: Splash(),
+            home: BottomNavBar(),
           );
         });
   }
