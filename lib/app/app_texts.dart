@@ -25,6 +25,18 @@ class AppText {
   static const String location = 'Location';
   static const String emergency = 'Emergency';
   static const String faceId = 'Face Id';
+  static const String settings = 'Settings';
+  static const String account = 'Account';
+  static const String actions = 'Actions';
+  static const String security = 'Security';
+  static const String doYouKnowHim = 'Do You Know Him?';
+  static const String addNewUser = 'Add New User';
+  static const String reject = 'Reject';
+  static const String acceptForOnlyThisTime = 'Accept For Only This Time';
+  static const String supportAbout = 'Support & About';
+  static const String notification = 'Notification';
+  static const String notifications = 'Notifications';
+  static const String editProfile = 'Edit Profile';
   static const String letsGetStart = 'Let Get Started!';
   static const String alreadyHaveAcc = 'Already have account?';
 }

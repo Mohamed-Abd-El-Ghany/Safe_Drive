@@ -8,4 +8,6 @@ class AppImages {
   static const String pic6 = '${imagePath}pic6.png';
   static const String pic7 = '${imagePath}pic7.png';
   static const String busPic = '${imagePath}rafiki.png';
+  static const String person2 = '${imagePath}person.png';
+  static const String person = '${imagePath}Ellipse 42.jpg';
 }
