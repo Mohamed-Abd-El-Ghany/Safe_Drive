@@ -6,7 +6,7 @@ import 'package:safedrive/screens/splash_screen.dart';
 import 'app/app_colors.dart';
 import 'app/app_images.dart';
 import 'app/app_texts.dart';
-import 'presenation/components/custom_bottom.dart';
+import 'presenation/components/custom_button.dart';
 
 void main() => runApp(const MyApp());
 
