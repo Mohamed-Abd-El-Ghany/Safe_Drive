@@ -20,10 +20,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: AppColors.latte1,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: AppColors.latte1,
         centerTitle: true,
         title: Text(
           AppText.safe,
@@ -39,7 +39,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 90.w, vertical: 15.h),
+                padding: const EdgeInsets.only(top: 35),
                 child: Text(
                   AppText.letsGetStart,
                   style: TextStyle(
@@ -109,12 +109,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                 height: 30.h,
               ),
-              const CustomTextField(
+              CustomTextField(
                 type: TextInputType.visiblePassword,
-                hintText: AppText.password,
-                prefixIcon: Icon(
+                hintText: AppText.confirmPassword,
+                prefixIcon: const Icon(
                   Icons.lock,
                   color: AppColors.teel,
+                ),
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isVisible = !isVisible;
+                    });
+                  },
+                  child: Icon(
+                    isVisible
+                        ? CupertinoIcons.eye_slash_fill
+                        : CupertinoIcons.eye_fill,
+                    color: AppColors.teel,
+                  ),
                 ),
                 isVisible: true,
               ),

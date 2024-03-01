@@ -6,7 +6,7 @@ import 'package:safedrive/app/app_images.dart';
 import 'package:safedrive/app/app_texts.dart';
 import 'package:safedrive/presenation/components/custom_button.dart';
 import 'package:safedrive/presenation/components/custom_text_field.dart';
-import 'package:safedrive/screens/custom_bottom_nav_bar.dart';
+import 'package:safedrive/presenation/components/custom_bottom_nav_bar.dart';
 import 'package:safedrive/screens/sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -23,10 +23,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: AppColors.latte1,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: AppColors.latte1,
         centerTitle: true,
         title: const Text(
           AppText.safe,

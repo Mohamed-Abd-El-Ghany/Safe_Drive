@@ -11,7 +11,7 @@ class AppText {
   static const String next = 'Next';
   static const String email = 'Email';
   static const String password = 'Password';
-  static const String confirmPassword = 'Password';
+  static const String confirmPassword = 'Confirm Password';
   static const String forgetPassword = 'Forget Password';
   static const String login = 'Log in';
   static const String loginHere = 'Login Here';

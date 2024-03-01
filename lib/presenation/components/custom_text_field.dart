@@ -42,8 +42,8 @@ class CustomTextField extends StatelessWidget {
           contentPadding: contentPadding ??
               EdgeInsets.symmetric(horizontal: 10.h, vertical: 10.w),
           labelText: hintText,
-          hoverColor: AppColors.primaryColor,
-          labelStyle: const TextStyle(color: AppColors.black),
+          hoverColor: AppColors.latte1,
+          labelStyle: const TextStyle(color: AppColors.grey1),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.r),
           ),

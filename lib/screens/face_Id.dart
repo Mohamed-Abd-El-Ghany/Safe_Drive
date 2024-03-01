@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safedrive/app/app_colors.dart';
+import 'package:safedrive/screens/home_screen.dart';
 import '../app/app_images.dart';
 import '../app/app_texts.dart';
 
@@ -27,12 +29,23 @@ class _FaceIdState extends State<FaceId> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        leading: const Icon(Icons.arrow_back_ios_new_sharp),
+        leading: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (builder) => const HomeScreen()),
+            );
+          },
+          child: const Icon(Icons.arrow_back_ios_new_sharp),
+        ),
         backgroundColor: AppColors.teel,
         actions: const [
           Padding(
             padding: EdgeInsets.only(right: 20),
-            child: Icon(Icons.face_retouching_natural_rounded),
+            child: Icon(
+              CupertinoIcons.camera_viewfinder,
+              size: 40,
+            ),
           )
         ],
       ),
@@ -68,13 +81,16 @@ class _FaceIdState extends State<FaceId> {
                   borderRadius: BorderRadius.circular(24.r),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 60.w, vertical: 12.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 60.w, vertical: 12.h),
                   child: const Center(
                     child: Text(
                       AppText.add,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: AppColors.white,fontSize: 16 ,fontWeight: FontWeight.w500),
+                          color: AppColors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),
