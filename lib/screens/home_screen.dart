@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:safedrive/screens/emmergancy.dart';
+import 'package:safedrive/screens/emergency.dart';
 import 'package:safedrive/screens/location.dart';
 import 'package:safedrive/screens/settings.dart';
 import '../app/app_colors.dart';
 import '../app/app_texts.dart';
 import '../presenation/components/custom_home_container.dart';
-import 'face_Id.dart';
+import 'face_id.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                   color: AppColors.teel,
                   size: 40.w,
                 ),
-                navScreen: const Emmergancy(),
+                navScreen: const Emergency(),
               ),
             ],
           ),

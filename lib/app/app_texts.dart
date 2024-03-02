@@ -27,6 +27,15 @@ class AppText {
   static const String faceId = 'Face Id';
   static const String settings = 'Settings';
   static const String account = 'Account';
+  static const String support = 'Support & About';
+  static const String about = 'About';
+  static const String report = 'Report a Problem';
+  static const String add1 = 'Add account';
+  static const String log = 'Log Out';
+  static const String there = 'There is someone who';
+  static const String wants = 'wants to drive your car.';
+  static const String help = 'Help & Support';
+  static const String terms = 'Terms & Policies';
   static const String actions = 'Actions';
   static const String security = 'Security';
   static const String doYouKnowHim = 'Do You Know Him?';

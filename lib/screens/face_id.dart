@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safedrive/app/app_colors.dart';
-import 'package:safedrive/screens/home_screen.dart';
 import '../app/app_images.dart';
 import '../app/app_texts.dart';
 
@@ -24,24 +23,19 @@ class _FaceIdState extends State<FaceId> {
         title: const Text(
           AppText.face,
           style: TextStyle(
-            color: Colors.white,
+            color: AppColors.latte0,
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
         ),
         leading: InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (builder) => const HomeScreen()),
-            );
+          onTap: (){
+            Navigator.pop(context);
           },
-          child: const Padding(
-            padding: EdgeInsets.only(left: 10),
-            child: Icon(
-              CupertinoIcons.arrow_left,
-              size: 30,
-            ),
+          child: Icon(
+            Icons.arrow_back,
+            color: AppColors.latte0,
+            size: 30.w,
           ),
         ),
         backgroundColor: AppColors.teel,
@@ -50,6 +44,7 @@ class _FaceIdState extends State<FaceId> {
             padding: EdgeInsets.only(right: 20),
             child: Icon(
               CupertinoIcons.camera_viewfinder,
+              color: AppColors.latte0,
               size: 40,
             ),
           )

@@ -47,16 +47,12 @@ class _Screen1State extends State<Screen1> {
                   }),
               items: imgList.map((imageUrl) {
                 return Padding(
-                  padding: const EdgeInsets.only(
-                    left: 50
-                  ),
+                  padding: const EdgeInsets.only(left: 50),
                   child: Image.asset(imageUrl, fit: BoxFit.fill),
                 );
               }).toList(),
             ),
-            SizedBox(
-              height: 30.h,
-            ),
+            SizedBox(height: 30.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -64,18 +60,22 @@ class _Screen1State extends State<Screen1> {
                 buildContainer(0),
               ],
             ),
-            SizedBox(
-              height: 70.h,
-            ),
+            SizedBox(height: 70.h),
             const Text(
               AppText.let,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             const Text(
               AppText.a,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             SizedBox(
               height: 50.h,

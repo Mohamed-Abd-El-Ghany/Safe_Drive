@@ -16,24 +16,21 @@ class NotificationScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: AppColors.teel,
         centerTitle: true,
-        title: const Text(AppText.notifications),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            size: 28.w,
+        title: const Text(
+          AppText.notifications,
+          style: TextStyle(
+            color: AppColors.latte0,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
-          color: AppColors.latte1,
-          onPressed: () {
-            Navigator.pop(context);
-          },
         ),
-        actions: [
+        actions: const [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            padding: EdgeInsets.only(right: 20),
             child: Icon(
               Icons.notifications_none,
-              color: AppColors.latte1,
-              size: 28.w,
+              color: AppColors.latte0,
+              size: 30,
             ),
           ),
         ],
@@ -42,57 +39,59 @@ class NotificationScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 8.h),
         child: ListView.separated(
           physics: const BouncingScrollPhysics(),
-            itemBuilder: (context, index) => Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 20.h, horizontal: 15.w),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 110.w,
-                        height: 165.h,
-                        decoration: BoxDecoration(
-                          color: AppColors.white.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(15.r),
-                          image: const DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage(
-                              AppImages.pic4,
-                            ),
-                          ),
-                        ),
+          itemBuilder: (context, index) => Padding(
+            padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 15.w),
+            child: Row(
+              children: [
+                Container(
+                  width: 110.w,
+                  height: 165.h,
+                  decoration: BoxDecoration(
+                    color: AppColors.white.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(15.r),
+                    image: const DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage(
+                        AppImages.pic4,
                       ),
-                      Column(
-                        children: [
-                          Text(
-                            AppText.doYouKnowHim,
-                            style: TextStyle(fontSize: 15.w),
-                          ),
-                          const CustomNotificationContainer(
-                            text: AppText.acceptForOnlyThisTime,
-                            color: AppColors.blue,
-                          ),
-                          const CustomNotificationContainer(
-                            text: AppText.addNewUser,
-                            color: AppColors.teel,
-                          ),
-                          const CustomNotificationContainer(
-                              text: AppText.reject, color: Colors.red),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-            separatorBuilder: (context, index) => Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 50.w,
-                    vertical: 16.h,
-                  ),
-                  child: Divider(
-                    thickness: 2.w,
-                    color: AppColors.black,
-                  ),
+                const Column(
+                  children: [
+                    Text(
+                      AppText.doYouKnowHim,
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    CustomNotificationContainer(
+                      text: AppText.acceptForOnlyThisTime,
+                      color: AppColors.blue,
+                    ),
+                    CustomNotificationContainer(
+                      text: AppText.addNewUser,
+                      color: AppColors.teel,
+                    ),
+                    CustomNotificationContainer(
+                      text: AppText.reject,
+                      color: AppColors.red,
+                    ),
+                  ],
                 ),
-            itemCount: 8),
+              ],
+            ),
+          ),
+          separatorBuilder: (context, index) => Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 50.w,
+              vertical: 16.h,
+            ),
+            child: const Divider(
+              thickness: 2,
+              color: AppColors.black,
+            ),
+          ),
+          itemCount: 8,
+        ),
       ),
     );
   }
