@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../app/app_colors.dart';
 import '../app/app_texts.dart';
+import '../presenation/components/custom_emergency_container1.dart';
+import '../presenation/components/custom_emergency_container2.dart';
+import '../presenation/components/custom_emergency_container3.dart';
+import '../presenation/components/custom_emergency_container4.dart';
 
 class Emergency extends StatefulWidget {
   const Emergency({Key? key}) : super(key: key);
@@ -50,39 +54,62 @@ class _EmergencyState extends State<Emergency> {
         ],
       ),
       body: Center(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 50),
-              child: InkWell(
-                child: CircleAvatar(
-                  radius: 100.r,
-                  backgroundColor: AppColors.white,
-                  child: const Icon(
-                    CupertinoIcons.person_alt_circle,
-                    size: 210,
-                    color: AppColors.black,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 50),
+                child: InkWell(
+                  child: CircleAvatar(
+                    radius: 100.r,
+                    backgroundColor: AppColors.white,
+                    child: const Icon(
+                      CupertinoIcons.person_alt_circle,
+                      size: 210,
+                      color: AppColors.black,
+                    ),
                   ),
+                  onTap: () {},
                 ),
-                onTap: () {},
               ),
-            ),
-            SizedBox(height: 20.h),
-            const Text(
-              AppText.there,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
+              SizedBox(height: 20.h),
+              const Text(
+                AppText.there,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-            const Text(
-              AppText.wants,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
+              const Text(
+                AppText.wants,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: 10.h),
+              const Padding(
+                padding: EdgeInsets.all(8),
+                child: CustomEmergencyContainer1(),
+              ),
+              SizedBox(height: 10.h),
+              const Padding(
+                padding: EdgeInsets.all(8),
+                child: CustomEmergencyContainer2(),
+              ),
+              SizedBox(height: 10.h),
+              const Padding(
+                padding: EdgeInsets.all(8),
+                child: CustomEmergencyContainer3(),
+              ),
+              SizedBox(height: 10.h),
+              const Padding(
+                padding: EdgeInsets.all(8),
+                child: CustomEmergencyContainer4(),
+              ),
+            ],
+          ),
         ),
       ),
     );

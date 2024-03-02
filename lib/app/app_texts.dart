@@ -34,6 +34,13 @@ class AppText {
   static const String log = 'Log Out';
   static const String there = 'There is someone who';
   static const String wants = 'wants to drive your car.';
+  static const String call1 = 'Call Emergency';
+  static const String call2 = 'Call Ambulance';
+  static const String call = 'Call';
+  static const String call112 = '112';
+  static const String call123 = '123';
+  static const String call012 = '01287002189';
+  static const String call010 = '01062468772';
   static const String help = 'Help & Support';
   static const String terms = 'Terms & Policies';
   static const String actions = 'Actions';
