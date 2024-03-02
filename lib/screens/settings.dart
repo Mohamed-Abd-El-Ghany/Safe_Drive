@@ -28,7 +28,7 @@ class Settings extends StatelessWidget {
           },
           child: Icon(
             Icons.arrow_back,
-            color: AppColors.primaryColor,
+            color: AppColors.latte1,
             size: 28.w,
           ),
         ),
@@ -38,7 +38,7 @@ class Settings extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8.w),
             child: Icon(
               Icons.settings,
-              color: AppColors.primaryColor,
+              color: AppColors.latte1,
               size: 28.w,
             ),
           ),

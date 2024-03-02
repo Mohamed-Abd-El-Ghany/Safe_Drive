@@ -6,6 +6,7 @@ class AppText {
   static const String a = 'a safe one together. 🚗💨';
   static const String safe = 'Safe Drive';
   static const String face = 'Face ID';
+  static const String emergency  = 'Emergency';
   static const String add = 'Add New Face ID';
   static const String your = 'Your AI Guardian On The Road';
   static const String next = 'Next';
@@ -23,7 +24,6 @@ class AppText {
   static const String or = 'OR';
   static const String setting = 'Setting';
   static const String location = 'Location';
-  static const String emergency = 'Emergency';
   static const String faceId = 'Face Id';
   static const String settings = 'Settings';
   static const String account = 'Account';

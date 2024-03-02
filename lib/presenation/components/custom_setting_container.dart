@@ -12,7 +12,7 @@ class CustomSettingContainer extends StatelessWidget {
     return  Container(
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
       decoration: BoxDecoration(
-        color: AppColors.primaryColor,
+        color: AppColors.latte1,
         border: Border.all(
           color: AppColors.black,
         ),

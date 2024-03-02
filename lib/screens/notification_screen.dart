@@ -22,7 +22,7 @@ class NotificationScreen extends StatelessWidget {
             Icons.arrow_back,
             size: 28.w,
           ),
-          color: AppColors.primaryColor,
+          color: AppColors.latte1,
           onPressed: () {
             Navigator.pop(context);
           },
@@ -32,7 +32,7 @@ class NotificationScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8.w),
             child: Icon(
               Icons.notifications_none,
-              color: AppColors.primaryColor,
+              color: AppColors.latte1,
               size: 28.w,
             ),
           ),
