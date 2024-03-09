@@ -50,10 +50,10 @@ class Settings extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Center(
-              child: Text(
-                AppText.account,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            const Text(
+              AppText.account,
+              style: TextStyle(
+                fontSize: 20,
               ),
             ),
             SizedBox(height: 10.h),
@@ -62,10 +62,10 @@ class Settings extends StatelessWidget {
               child: CustomSettingContainer1(),
             ),
             SizedBox(height: 20.h),
-            const Center(
-              child: Text(
-                AppText.support,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            const Text(
+              AppText.support,
+              style: TextStyle(
+                fontSize: 20,
               ),
             ),
             SizedBox(height: 10.h),
@@ -74,10 +74,10 @@ class Settings extends StatelessWidget {
               child: CustomSettingContainer2(),
             ),
             SizedBox(height: 20.h),
-            const Center(
-              child: Text(
-                AppText.actions,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            const Text(
+              AppText.actions,
+              style: TextStyle(
+                fontSize: 20,
               ),
             ),
             SizedBox(height: 10.h),
