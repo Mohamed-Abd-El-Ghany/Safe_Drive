@@ -46,7 +46,7 @@ class Settings extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 32.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -56,10 +56,9 @@ class Settings extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
-            SizedBox(height: 10.h),
-            const Padding(
-              padding: EdgeInsets.all(8),
-              child: CustomSettingContainer1(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+              child: const CustomSettingContainer1(),
             ),
             SizedBox(height: 20.h),
             const Text(
@@ -69,9 +68,9 @@ class Settings extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10.h),
-            const Padding(
-              padding: EdgeInsets.all(8),
-              child: CustomSettingContainer2(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+              child: const CustomSettingContainer2(),
             ),
             SizedBox(height: 20.h),
             const Text(
@@ -81,9 +80,9 @@ class Settings extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10.h),
-            const Padding(
-              padding: EdgeInsets.all(8),
-              child: CustomSettingContainer3(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+              child: const CustomSettingContainer3(),
             ),
           ],
         ),
