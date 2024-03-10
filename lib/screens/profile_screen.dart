@@ -79,7 +79,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
                   child: Row(
                     children: [
                       Icon(
@@ -88,7 +88,7 @@ class ProfileScreen extends StatelessWidget {
                         size: 20.w,
                       ),
                       SizedBox(
-                        width: 8.w,
+                        width: 7.w,
                       ),
                       Text(
                         AppText.phoneNumber,
@@ -98,7 +98,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 8.w,
+                        width: 7.w,
                       ),
                       Text(
                         AppText.call012,
@@ -112,7 +112,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
                   child: Row(
                     children: [
                       Icon(
@@ -121,7 +121,7 @@ class ProfileScreen extends StatelessWidget {
                         size: 20.w,
                       ),
                       SizedBox(
-                        width: 8.w,
+                        width: 7.w,
                       ),
                       Text(
                         AppText.address,
@@ -131,7 +131,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 8.w,
+                        width: 7.w,
                       ),
                       Text(
                         AppText.california,
@@ -145,7 +145,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
                   child: Row(
                     children: [
                       Icon(
@@ -154,7 +154,7 @@ class ProfileScreen extends StatelessWidget {
                         size: 20.w,
                       ),
                       SizedBox(
-                        width: 8.w,
+                        width: 7.w,
                       ),
                       Text(
                         AppText.birthDate,
@@ -164,7 +164,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 8.w,
+                        width: 7.w,
                       ),
                       Text(
                         AppText.birthDateTime,
@@ -178,7 +178,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
                   child: Row(
                     children: [
                       Icon(
@@ -187,7 +187,7 @@ class ProfileScreen extends StatelessWidget {
                         size: 20.w,
                       ),
                       SizedBox(
-                        width: 8.w,
+                        width: 7.w,
                       ),
                       Text(
                         AppText.age,
