@@ -46,44 +46,43 @@ class Settings extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 32.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Center(
-              child: Text(
-                AppText.account,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            const Text(
+              AppText.account,
+              style: TextStyle(
+                fontSize: 20,
               ),
             ),
-            SizedBox(height: 10.h),
-            const Padding(
-              padding: EdgeInsets.all(8),
-              child: CustomSettingContainer1(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+              child: const CustomSettingContainer1(),
             ),
             SizedBox(height: 20.h),
-            const Center(
-              child: Text(
-                AppText.support,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            const Text(
+              AppText.support,
+              style: TextStyle(
+                fontSize: 20,
               ),
             ),
             SizedBox(height: 10.h),
-            const Padding(
-              padding: EdgeInsets.all(8),
-              child: CustomSettingContainer2(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+              child: const CustomSettingContainer2(),
             ),
             SizedBox(height: 20.h),
-            const Center(
-              child: Text(
-                AppText.actions,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            const Text(
+              AppText.actions,
+              style: TextStyle(
+                fontSize: 20,
               ),
             ),
             SizedBox(height: 10.h),
-            const Padding(
-              padding: EdgeInsets.all(8),
-              child: CustomSettingContainer3(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+              child: const CustomSettingContainer3(),
             ),
           ],
         ),

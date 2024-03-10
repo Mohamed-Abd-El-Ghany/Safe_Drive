@@ -20,6 +20,9 @@ class AppText {
   static const String signUp = 'Sign Up';
   static const String name = 'Name';
   static const String phone = 'Phone';
+  static const String phoneNumber = 'Phone Number |';
+  static const String birthDate  = 'Birth Date |';
+  static const String birthDateTime  = '3/3/1990';
   static const String doNotHaveAcc = 'Don\'t have an account ?';
   static const String or = 'OR';
   static const String setting = 'Setting';
@@ -44,6 +47,13 @@ class AppText {
   static const String help = 'Help & Support';
   static const String terms = 'Terms & Policies';
   static const String actions = 'Actions';
+  static const String age = 'Age |';
+  static const String address = 'Address |';
+  static const String manufacturer = 'Manufacturer |';
+  static const String carInsurance = 'Car Insurance |';
+  static const String driverLicense = 'Driver License |';
+  static const String carInfo = 'Car Information';
+  static const String california = 'california';
   static const String security = 'Security';
   static const String doYouKnowHim = 'Do You Know Him?';
   static const String addNewUser = 'Add New User';
@@ -53,6 +63,9 @@ class AppText {
   static const String notification = 'Notification';
   static const String notifications = 'Notifications';
   static const String editProfile = 'Edit Profile';
+  static const String profile = 'Profile';
+  static const String karlaPeter = 'Karla peter';
+  static const String userProfile = 'User Profile';
   static const String letsGetStart = 'Let Get Started!';
   static const String alreadyHaveAcc = 'Already have account?';
 }

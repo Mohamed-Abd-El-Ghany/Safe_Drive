@@ -10,7 +10,6 @@ class CustomSettingContainer2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150.h,
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
       decoration: BoxDecoration(
         color: AppColors.latte1,
@@ -24,7 +23,7 @@ class CustomSettingContainer2 extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(6),
+            padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
             child: Row(
               children: [
                 Icon(
@@ -44,9 +43,8 @@ class CustomSettingContainer2 extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 8.h),
           Padding(
-            padding: const EdgeInsets.all(6),
+            padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
             child: Row(
               children: [
                 Icon(
@@ -63,9 +61,8 @@ class CustomSettingContainer2 extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 8.h),
           Padding(
-            padding: const EdgeInsets.all(6),
+            padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
             child: Row(
               children: [
                 Icon(
