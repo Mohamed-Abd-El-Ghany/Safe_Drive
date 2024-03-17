@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../app/app_colors.dart';
 import '../app/app_images.dart';
-import '../main.dart';
+import 'myapp.dart';
 
 
 class Splash extends StatefulWidget {
@@ -21,8 +21,7 @@ class _SplashState extends State<Splash> {
   naviatetohome() async {
     await Future.delayed(const Duration(milliseconds: 1500));
     // ignore: use_build_context_synchronously
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const MyHomePage()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const MyHomePage()));
   }
 
   @override
