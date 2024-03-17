@@ -79,7 +79,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+                      EdgeInsets.symmetric(horizontal: 17.w, vertical: 12.h),
                   child: Row(
                     children: [
                       Icon(

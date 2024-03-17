@@ -11,7 +11,7 @@ class CustomEmergencyContainer3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 55.h,
-      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+      padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 7.h),
       decoration: BoxDecoration(
         color: AppColors.latte1,
         border: Border.all(
