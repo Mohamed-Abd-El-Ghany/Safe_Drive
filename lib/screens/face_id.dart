@@ -59,10 +59,13 @@ class _FaceIdState extends State<FaceId> {
                 child: CircleAvatar(
                   radius: 100.r,
                   backgroundColor: AppColors.white,
-                  child: const Icon(
-                    CupertinoIcons.camera_circle,
-                    size: 210,
-                    color: AppColors.black,
+                  child: const Padding(
+                    padding: EdgeInsets.only(top: 3),
+                    child: Icon(
+                      CupertinoIcons.camera_circle,
+                      size: 225,
+                      color: AppColors.black,
+                    ),
                   ),
                 ),
                 onTap: () {},

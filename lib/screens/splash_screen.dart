@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:safedrive/screens/fingerprint_screen.dart';
 import '../app/app_colors.dart';
 import '../app/app_images.dart';
-import 'myapp.dart';
-
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -21,7 +20,7 @@ class _SplashState extends State<Splash> {
   naviatetohome() async {
     await Future.delayed(const Duration(milliseconds: 1500));
     // ignore: use_build_context_synchronously
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const MyHomePage()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const FingerPrint()));
   }
 
   @override
@@ -38,3 +37,4 @@ class _SplashState extends State<Splash> {
     );
   }
 }
+
