@@ -87,7 +87,7 @@ class _FaceIdState extends State<FaceId> {
                       EdgeInsets.symmetric(horizontal: 60.w, vertical: 12.h),
                   child: const Center(
                     child: Text(
-                      AppText.add,
+                      AppText.addNewFaceId,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: AppColors.white,

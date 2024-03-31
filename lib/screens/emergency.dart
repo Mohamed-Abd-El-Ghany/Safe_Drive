@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../app/app_colors.dart';
 import '../app/app_texts.dart';
-import '../presenation/components/custom_emergency_container1.dart';
-import '../presenation/components/custom_emergency_container2.dart';
-import '../presenation/components/custom_emergency_container3.dart';
-import '../presenation/components/custom_emergency_container4.dart';
+import '../presenation/components/custom_add_item_bottom_sheet.dart';
+import '../presenation/components/custom_emergency_container.dart';
 
 class Emergency extends StatefulWidget {
-  const Emergency({Key? key}) : super(key: key);
+  const Emergency({super.key});
 
   @override
   State<Emergency> createState() => _EmergencyState();
@@ -20,6 +18,21 @@ class _EmergencyState extends State<Emergency> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.latte0,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height),
+            backgroundColor: AppColors.latte1,
+            context: context,
+            builder: (context) {
+              return const AddItemBottomSheet();
+            },
+          );
+        },
+        backgroundColor: AppColors.teel,
+        child: const Icon(CupertinoIcons.add, color: AppColors.white),
+      ),
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
@@ -55,25 +68,22 @@ class _EmergencyState extends State<Emergency> {
       ),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
           child: Column(
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 50),
-                child: InkWell(
-                  child: CircleAvatar(
-                    radius: 100.r,
-                    backgroundColor: AppColors.white,
-                    child: const Padding(
-                      padding: EdgeInsets.only(top: 3),
-                      child: Icon(
-                        CupertinoIcons.person_alt_circle,
-                        size: 225,
-                        color: AppColors.black,
-                      ),
+                child: CircleAvatar(
+                  radius: 100.r,
+                  backgroundColor: AppColors.white,
+                  child: const Padding(
+                    padding: EdgeInsets.only(top: 3),
+                    child: Icon(
+                      CupertinoIcons.person_alt_circle,
+                      size: 225,
+                      color: AppColors.black,
                     ),
                   ),
-                  onTap: () {},
                 ),
               ),
               SizedBox(height: 20.h),
@@ -92,24 +102,13 @@ class _EmergencyState extends State<Emergency> {
                 ),
               ),
               SizedBox(height: 10.h),
-              const Padding(
-                padding: EdgeInsets.all(8),
-                child: CustomEmergencyContainer1(),
-              ),
-              SizedBox(height: 10.h),
-              const Padding(
-                padding: EdgeInsets.all(8),
-                child: CustomEmergencyContainer2(),
-              ),
-              SizedBox(height: 10.h),
-              const Padding(
-                padding: EdgeInsets.all(8),
-                child: CustomEmergencyContainer3(),
-              ),
-              SizedBox(height: 10.h),
-              const Padding(
-                padding: EdgeInsets.all(8),
-                child: CustomEmergencyContainer4(),
+              Expanded(
+                child: ListView.builder(
+                  itemBuilder: (context, index) => Padding(
+                    padding: EdgeInsets.symmetric(vertical: 7.h),
+                    child: const CustomEmergencyContainer(),
+                  ),
+                ),
               ),
             ],
           ),
@@ -118,3 +117,123 @@ class _EmergencyState extends State<Emergency> {
     );
   }
 }
+
+// Center(
+// child: Padding(
+// padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+// child: Column(
+// children: [
+// Padding(
+// padding: const EdgeInsets.only(top: 50),
+// child: InkWell(
+// child: CircleAvatar(
+// radius: 100.r,
+// backgroundColor: AppColors.white,
+// child: const Padding(
+// padding: EdgeInsets.only(top: 3),
+// child: Icon(
+// CupertinoIcons.person_alt_circle,
+// size: 225,
+// color: AppColors.black,
+// ),
+// ),
+// ),
+// onTap: () {},
+// ),
+// ),
+// SizedBox(height: 20.h),
+// const Text(
+// AppText.there,
+// style: TextStyle(
+// fontSize: 16,
+// fontWeight: FontWeight.w500,
+// ),
+// ),
+// const Text(
+// AppText.wants,
+// style: TextStyle(
+// fontSize: 16,
+// fontWeight: FontWeight.w500,
+// ),
+// ),
+// SizedBox(height: 10.h),
+// const Padding(
+// padding: EdgeInsets.all(8),
+// child: CustomEmergencyContainer1(),
+// ),
+// SizedBox(height: 10.h),
+// const Padding(
+// padding: EdgeInsets.all(8),
+// child: CustomEmergencyContainer2(),
+// ),
+// SizedBox(height: 10.h),
+// const Padding(
+// padding: EdgeInsets.all(8),
+// child: CustomEmergencyContainer3(),
+// ),
+// SizedBox(height: 10.h),
+// const Padding(
+// padding: EdgeInsets.all(8),
+// child: CustomEmergencyContainer4(),
+// ),
+// ],
+// ),
+// ),
+// ),
+
+// void _showFrom(BuildContext ctx, int? itemKey) async {
+//   showModalBottomSheet(
+//     context: ctx,
+//     builder: (context) => Container(
+//       child: Column(
+//         children: [
+//           CustomTextField(
+//             controller: _nameController,
+//             type: TextInputType.name,
+//             hintText: AppText.name,
+//           ),
+//           SizedBox(
+//             height: 20.h,
+//           ),
+//           CustomTextField(
+//             controller: _numberController,
+//             type: TextInputType.number,
+//             hintText: AppText.phoneNumber,
+//           ),
+//           SizedBox(
+//             height: 20.h,
+//           ),
+//           ElevatedButton(
+//             onPressed: () async {
+//               _createItem({
+//                 'name': _nameController.text,
+//                 'number': _numberController.text
+//               });
+//               _nameController.text = '';
+//               _numberController.text = '';
+//               Navigator.of(context).pop();
+//             },
+//             child: const Text(AppText.add),
+//           )
+//         ],
+//       ),
+//     ),
+//   );
+// }
+//
+
+// Future<void> _createItem(Map<String, dynamic> newItem) async {
+//   await _emergencyBox.add(newItem);
+//   // print('number of record is $_emergencyBox');
+//   _refreshItems();
+// }
+
+// void _refreshItems() {
+//   final data = _emergencyBox.keys.map((key) {
+//     final item = _emergencyBox.get(key);
+//     return {'key': key, 'name': item['name'], 'number': item['number']};
+//   }).toList();
+//   setState(() {
+//     _items = data.reversed.toList();
+//   });
+// }

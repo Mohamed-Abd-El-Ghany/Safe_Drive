@@ -6,6 +6,7 @@ import '../app/app_colors.dart';
 import '../app/app_images.dart';
 import '../app/app_texts.dart';
 import '../presenation/components/custom_button.dart';
+import 'emergency.dart';
 import 'opening1.dart';
 
 class MyApp extends StatelessWidget {

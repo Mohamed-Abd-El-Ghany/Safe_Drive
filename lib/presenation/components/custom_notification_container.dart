@@ -3,8 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomNotificationContainer extends StatelessWidget {
   const CustomNotificationContainer(
-      {Key? key, required this.text, required this.color})
-      : super(key: key);
+      {super.key, required this.text, required this.color});
   final String text;
   final Color color;
 

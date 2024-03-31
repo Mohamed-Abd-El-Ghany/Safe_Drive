@@ -14,13 +14,18 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    naviatetohome();
+    navigateToHome();
   }
 
-  naviatetohome() async {
+  navigateToHome() async {
     await Future.delayed(const Duration(milliseconds: 1500));
     // ignore: use_build_context_synchronously
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const FingerPrint()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const FingerPrint(),
+      ),
+    );
   }
 
   @override
@@ -37,4 +42,3 @@ class _SplashState extends State<Splash> {
     );
   }
 }
-

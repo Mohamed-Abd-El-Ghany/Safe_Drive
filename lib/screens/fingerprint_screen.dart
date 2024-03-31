@@ -12,7 +12,7 @@ class FingerPrint extends StatefulWidget {
 
 class _FingerPrintState extends State<FingerPrint> {
   final FingerprintAuthentication _fingerprintAuth =
-  FingerprintAuthentication();
+      FingerprintAuthentication();
 
   bool _authenticationFailed = false;
 
@@ -20,7 +20,7 @@ class _FingerPrintState extends State<FingerPrint> {
     bool isAuthenticated = await _fingerprintAuth.authenticate();
     if (isAuthenticated) {
       Navigator.pushReplacement(
-        // ignore: use_build_context_synchronously
+          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(builder: (context) => const MyHomePage()));
     } else {
@@ -28,16 +28,20 @@ class _FingerPrintState extends State<FingerPrint> {
         _authenticationFailed = true;
       });
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Authentication failed'),
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Authentication failed'),
+        ),
+      );
     }
   }
+
   @override
   void initState() {
     super.initState();
     _authenticateUser(context);
   }
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
@@ -45,7 +49,6 @@ class _FingerPrintState extends State<FingerPrint> {
     );
   }
 }
-
 
 class FingerprintAuthentication {
   final LocalAuthentication _localAuth = LocalAuthentication();

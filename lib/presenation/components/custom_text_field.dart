@@ -9,22 +9,24 @@ class CustomTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final String hintText;
+  final TextEditingController? controller;
 
   const CustomTextField(
-      {Key? key,
+      {super.key,
       this.contentPadding,
       this.isVisible,
       required this.type,
       this.prefixIcon,
       this.suffixIcon,
-      required this.hintText})
-      : super(key: key);
+      required this.hintText,
+      this.controller});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 43.h,
       child: TextFormField(
+        controller: controller,
         obscureText: isVisible ?? false,
         keyboardType: type ?? TextInputType.emailAddress,
         decoration: InputDecoration(
@@ -33,11 +35,7 @@ class CustomTextField extends StatelessWidget {
           ),
           filled: true,
           fillColor: AppColors.latte0,
-          prefixIcon: prefixIcon ??
-              const Icon(
-                Icons.email,
-                color: AppColors.teel,
-              ),
+          prefixIcon: prefixIcon ,
           suffixIcon: suffixIcon,
           contentPadding: contentPadding ??
               EdgeInsets.symmetric(horizontal: 10.h, vertical: 10.w),

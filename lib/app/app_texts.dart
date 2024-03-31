@@ -7,7 +7,8 @@ class AppText {
   static const String safe = 'Safe Drive';
   static const String face = 'Face ID';
   static const String emergency  = 'Emergency';
-  static const String add = 'Add New Face ID';
+  static const String addNewFaceId = 'Add New Face ID';
+  static const String add = 'Add';
   static const String your = 'Your AI Guardian On The Road';
   static const String next = 'Next';
   static const String email = 'Email';
