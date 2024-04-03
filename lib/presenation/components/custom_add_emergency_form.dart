@@ -55,7 +55,7 @@ class _AddEmergencyFormState extends State<AddEmergencyForm> {
                 builder: (context, state) {
                   return CustomElevatedButton(
                     isLoading:
-                        State is AddEmergencyNumberLoading ? true : false,
+                        state is AddEmergencyNumberLoading ? true : false,
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();

@@ -56,41 +56,46 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     //Email TextFormField
                     Padding(
-                        padding:
-                            EdgeInsets.only(top: 85.h, right: 25.w, left: 25.w),
-                        child: CustomTextField(
-                          type: TextInputType.emailAddress,
-                          hintText: AppText.email,
-                          prefixIcon: Icon(Icons.email,
-                              color: AppColors.teel, size: 24.h),
-                        )),
-                    SizedBox(
-                      height: 20.h,
+                      padding:
+                          EdgeInsets.only(top: 85.h, right: 25.w, left: 25.w),
+                      child: const CustomTextField(
+                        type: TextInputType.emailAddress,
+                        hintText: AppText.email,
+                        prefixIcon: Icon(
+                          Icons.email,
+                          color: AppColors.teel,
+                          size: 24,
+                        ),
+                      ),
                     ),
+                    SizedBox(height: 20.h),
                     //Password TextFormField
                     Padding(
-                      padding: EdgeInsets.only(
-                        right: 25.w,
-                        left: 25.w,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 25.w),
                       child: CustomTextField(
                         contentPadding: EdgeInsets.symmetric(vertical: 10.h),
                         isVisible: isObscureText,
                         type: TextInputType.visiblePassword,
                         hintText: AppText.password,
-                        prefixIcon:
-                            Icon(Icons.lock, color: AppColors.teel, size: 24.h),
+                        prefixIcon: const Icon(
+                          Icons.lock,
+                          color: AppColors.teel,
+                          size: 24,
+                        ),
                         suffixIcon: GestureDetector(
                           onTap: () {
-                            setState(() {
-                              isObscureText = !isObscureText;
-                            });
+                            setState(
+                              () {
+                                isObscureText = !isObscureText;
+                              },
+                            );
                           },
                           child: Icon(
-                              isObscureText
-                                  ? CupertinoIcons.eye_slash_fill
-                                  : CupertinoIcons.eye_fill,
-                              color: AppColors.teel),
+                            isObscureText
+                                ? CupertinoIcons.eye_slash_fill
+                                : CupertinoIcons.eye_fill,
+                            color: AppColors.teel,
+                          ),
                         ),
                       ),
                     ),
@@ -98,24 +103,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 //Forget Password
                 Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20.w,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
                   child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        AppText.forgetPassword,
-                        style: TextStyle(
-                            color: AppColors.black,
-                            decoration: TextDecoration.underline,
-                            fontSize: 14.h),
-                      )),
+                    onPressed: () {},
+                    child: Text(
+                      AppText.forgetPassword,
+                      style: TextStyle(
+                          color: AppColors.black,
+                          decoration: TextDecoration.underline,
+                          fontSize: 14.h),
+                    ),
+                  ),
                 ),
-                SizedBox(
-                  height: 20.h,
-                ),
+                SizedBox(height: 20.h),
                 CustomButton(
-                  navScreen:  const BottomNavBar(),
+                  navScreen: const BottomNavBar(),
                   selectText: AppText.login,
                   height: 60.h,
                   width: 80.w,
@@ -130,12 +132,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          vertical: 140.h, horizontal: 10.w),
+                        vertical: 140.h,
+                        horizontal: 10.w,
+                      ),
                       child: const Text(
                         AppText.or,
                         style: TextStyle(
-                            color: AppColors.white,
-                            fontWeight: FontWeight.bold),
+                          color: AppColors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Expanded(

@@ -8,7 +8,7 @@ import 'package:safedrive/screens/profile_screen.dart';
 import '../../app/app_colors.dart';
 
 class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({Key? key}) : super(key: key);
+  const BottomNavBar({super.key});
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();

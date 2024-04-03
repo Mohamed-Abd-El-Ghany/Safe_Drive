@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safedrive/screens/emergency_view.dart';
-import 'package:safedrive/screens/location.dart';
+//import 'package:safedrive/screens/location.dart';
 import 'package:safedrive/screens/settings.dart';
 import '../app/app_colors.dart';
 import '../app/app_texts.dart';
@@ -10,7 +10,7 @@ import '../presenation/components/custom_home_container.dart';
 import 'face_id.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,10 @@ class HomeScreen extends StatelessWidget {
         title: Text(
           AppText.safe,
           style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.w500, fontSize: 24.w),
+            color: Colors.black,
+            fontWeight: FontWeight.w500,
+            fontSize: 24.w,
+          ),
         ),
       ),
       body: Column(
@@ -41,9 +44,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 navScreen: const SettingsScreen(),
               ),
-              SizedBox(
-                width: 50.w,
-              ),
+              SizedBox(width: 50.w),
               CustomHomeContainer(
                 name: AppText.emergency,
                 icon: Icon(
@@ -55,9 +56,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: 50.h,
-          ),
+          SizedBox(height: 50.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -70,18 +69,16 @@ class HomeScreen extends StatelessWidget {
                 ),
                 navScreen: const FaceId(),
               ),
-              SizedBox(
-                width: 50.w,
-              ),
-              CustomHomeContainer(
-                name: AppText.location,
-                icon: Icon(
-                  Icons.location_on,
-                  color: AppColors.teel,
-                  size: 40.w,
-                ),
-                navScreen: const Location(),
-              ),
+              //SizedBox(width: 50.w),
+              // CustomHomeContainer(
+              //   name: AppText.location,
+              //   icon: Icon(
+              //     Icons.location_on,
+              //     color: AppColors.teel,
+              //     size: 40.w,
+              //   ),
+              //   navScreen: const Location(),
+              //),
             ],
           ),
         ],

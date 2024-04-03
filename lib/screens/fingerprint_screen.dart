@@ -28,11 +28,9 @@ class _FingerPrintState extends State<FingerPrint> {
         _authenticationFailed = true;
       });
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Authentication failed'),
-        ),
-      );
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Authentication failed'),
+      ));
     }
   }
 

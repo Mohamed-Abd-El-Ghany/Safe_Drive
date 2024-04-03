@@ -13,17 +13,17 @@ class CustomAddBottomSheet extends StatelessWidget {
       create: (context) => AddEmergencyNumberCubit(),
       child: BlocConsumer<AddEmergencyNumberCubit, AddEmergencyNumberState>(
         listener: (context, state) {
-          if (State is AddEmergencyNumberError) {}
-          if (State is AddEmergencyNumberSuccess) {
+          if (state is AddEmergencyNumberError) {}
+          if (state is AddEmergencyNumberSuccess) {
             BlocProvider.of<EmergencyItemCubit>(context)
                 .fetchAllEmergencyItem();
             Navigator.pop(context);
           }
         },
         builder: (context, state) {
-          return const AbsorbPointer(
-            absorbing: State is AddEmergencyNumberLoading ? true : false,
-            child: AddEmergencyForm(),
+          return  AbsorbPointer(
+            absorbing: state is AddEmergencyNumberLoading ? true : false,
+            child: const AddEmergencyForm(),
           );
         },
       ),
