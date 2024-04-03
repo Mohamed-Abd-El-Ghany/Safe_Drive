@@ -9,6 +9,7 @@ class AppText {
   static const String emergency  = 'Emergency';
   static const String addNewFaceId = 'Add New Face ID';
   static const String add = 'Add';
+  static const String emergencyBox = 'emergency_box';
   static const String your = 'Your AI Guardian On The Road';
   static const String next = 'Next';
   static const String email = 'Email';

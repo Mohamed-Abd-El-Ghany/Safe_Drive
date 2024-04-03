@@ -1,12 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:safedrive/data/cubit/emergency_item_cubit/emergency_item_cubit.dart';
 import 'package:safedrive/screens/splash_screen.dart';
 import '../app/app_colors.dart';
 import '../app/app_images.dart';
 import '../app/app_texts.dart';
 import '../presenation/components/custom_button.dart';
-import 'emergency.dart';
 import 'opening1.dart';
 
 class MyApp extends StatelessWidget {
@@ -18,9 +19,16 @@ class MyApp extends StatelessWidget {
         designSize: const Size(375, 812),
         splitScreenMode: true,
         builder: (_, child) {
-          return const MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: Splash(),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => EmergencyItemCubit(),
+              )
+            ],
+            child: const MaterialApp(
+              debugShowCheckedModeBanner: false,
+              home: Splash(),
+            ),
           );
         });
   }

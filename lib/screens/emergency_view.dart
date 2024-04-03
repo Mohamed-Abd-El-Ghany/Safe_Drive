@@ -3,30 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../app/app_colors.dart';
 import '../app/app_texts.dart';
-import '../presenation/components/custom_add_item_bottom_sheet.dart';
-import '../presenation/components/custom_emergency_container.dart';
+import '../presenation/components/custom_add_bottom_sheet.dart';
+import '../presenation/components/emergency_body.dart';
 
-class Emergency extends StatefulWidget {
+class Emergency extends StatelessWidget {
   const Emergency({super.key});
 
   @override
-  State<Emergency> createState() => _EmergencyState();
-}
-
-class _EmergencyState extends State<Emergency> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.latte0,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
-            constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height),
+            isScrollControlled: true,
+            constraints:
+                BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
             backgroundColor: AppColors.latte1,
             context: context,
             builder: (context) {
-              return const AddItemBottomSheet();
+              return Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: const CustomAddBottomSheet(),
+              );
             },
           );
         },
@@ -66,54 +67,7 @@ class _EmergencyState extends State<Emergency> {
           )
         ],
       ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 50),
-                child: CircleAvatar(
-                  radius: 100.r,
-                  backgroundColor: AppColors.white,
-                  child: const Padding(
-                    padding: EdgeInsets.only(top: 3),
-                    child: Icon(
-                      CupertinoIcons.person_alt_circle,
-                      size: 225,
-                      color: AppColors.black,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20.h),
-              const Text(
-                AppText.there,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const Text(
-                AppText.wants,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              SizedBox(height: 10.h),
-              Expanded(
-                child: ListView.builder(
-                  itemBuilder: (context, index) => Padding(
-                    padding: EdgeInsets.symmetric(vertical: 7.h),
-                    child: const CustomEmergencyContainer(),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      body: const EmergencyBody(),
     );
   }
 }

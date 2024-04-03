@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:safedrive/data/cubit/emergency_item_cubit/emergency_item_cubit.dart';
+import 'package:safedrive/domain/models/emergency_model.dart';
 import '../../app/app_colors.dart';
-import '../../app/app_texts.dart';
 
 class CustomEmergencyContainer extends StatelessWidget {
-  const CustomEmergencyContainer({super.key});
+  const CustomEmergencyContainer({super.key, required this.emergencyModel});
+
+  final EmergencyModel emergencyModel;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,7 @@ class CustomEmergencyContainer extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 6.w,vertical: 4.h),
+        padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -32,7 +36,7 @@ class CustomEmergencyContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppText.call1,
+                  emergencyModel.name,
                   style: TextStyle(
                     fontSize: 15.w,
                     fontWeight: FontWeight.bold,
@@ -42,19 +46,37 @@ class CustomEmergencyContainer extends StatelessWidget {
                   height: 6.h,
                 ),
                 Text(
-                  AppText.call112,
+                  emergencyModel.number.toString(),
                   style: TextStyle(fontSize: 18.h, color: AppColors.grey),
                 ),
               ],
             ),
-            IconButton(
-              color: AppColors.teel,
-              onPressed: () async =>
-                  await FlutterPhoneDirectCaller.callNumber('5000600000'),
-              icon: Icon(
-                CupertinoIcons.phone_fill,
-                size: 30.h,
-              ),
+            Row(
+              children: [
+                IconButton(
+                  color: AppColors.teel,
+                  onPressed: () async =>
+                      await FlutterPhoneDirectCaller.callNumber(
+                          emergencyModel.number.toString()),
+                  icon: Icon(
+                    CupertinoIcons.phone_fill,
+                    size: 31.h,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    emergencyModel.delete();
+
+                    BlocProvider.of<EmergencyItemCubit>(context)
+                        .fetchAllEmergencyItem();
+                  },
+                  icon: Icon(
+                    Icons.delete,
+                    color: AppColors.teel,
+                    size: 28.h,
+                  ),
+                ),
+              ],
             ),
           ],
         ),

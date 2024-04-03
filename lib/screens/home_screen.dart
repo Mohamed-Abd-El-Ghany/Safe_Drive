@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:safedrive/screens/emergency.dart';
+import 'package:safedrive/screens/emergency_view.dart';
 import 'package:safedrive/screens/location.dart';
 import 'package:safedrive/screens/settings.dart';
 import '../app/app_colors.dart';
