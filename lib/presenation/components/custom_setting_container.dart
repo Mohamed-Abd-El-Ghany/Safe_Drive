@@ -2,10 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../app/app_colors.dart';
-import '../../app/app_texts.dart';
 
-class CustomSettingContainer1 extends StatelessWidget {
-  const CustomSettingContainer1({Key? key}) : super(key: key);
+
+class CustomSettingContainer extends StatelessWidget {
+  const CustomSettingContainer(
+      {super.key,
+      required this.firstIcon,
+      required this.secondIcon,
+      required this.thirdIcon,
+      required this.firstText,
+      required this.secondText,
+      required this.thirdText});
+
+  final IconData firstIcon;
+  final IconData secondIcon;
+  final IconData thirdIcon;
+  final String firstText;
+  final String secondText;
+  final String thirdText;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,14 +44,14 @@ class CustomSettingContainer1 extends StatelessWidget {
             child: Row(
               children: [
                 Icon(
-                  Icons.person,
+                  firstIcon,
                   size: 26.w,
                 ),
                 SizedBox(
                   width: 95.w,
                 ),
                 Text(
-                  AppText.editProfile,
+                  firstText,
                   style: TextStyle(
                     fontSize: 15.w,
                     fontWeight: FontWeight.bold,
@@ -50,12 +65,12 @@ class CustomSettingContainer1 extends StatelessWidget {
             child: Row(
               children: [
                 Icon(
-                  Icons.security,
+                  secondIcon,
                   size: 25.w,
                 ),
                 SizedBox(width: 95.w),
                 Text(
-                  AppText.security,
+                  secondText,
                   style: TextStyle(
                     fontSize: 15.w,
                     fontWeight: FontWeight.bold,
@@ -69,14 +84,14 @@ class CustomSettingContainer1 extends StatelessWidget {
             child: Row(
               children: [
                 Icon(
-                  CupertinoIcons.bell,
+                  thirdIcon,
                   size: 25.w,
                 ),
                 SizedBox(
                   width: 95.w,
                 ),
                 Text(
-                  AppText.notification,
+                  thirdText,
                   style: TextStyle(
                     fontSize: 15.w,
                     fontWeight: FontWeight.bold,

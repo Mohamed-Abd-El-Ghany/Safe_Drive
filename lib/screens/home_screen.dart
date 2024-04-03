@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                   color: AppColors.teel,
                   size: 40.w,
                 ),
-                navScreen: const Settings(),
+                navScreen: const SettingsScreen(),
               ),
               SizedBox(
                 width: 50.w,
