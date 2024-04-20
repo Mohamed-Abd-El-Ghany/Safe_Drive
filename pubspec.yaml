@@ -44,7 +44,7 @@ dependencies:
   hive_flutter: ^1.1.0
   bloc: ^8.1.4
   flutter_bloc: ^8.1.5
-
+  firebase_core: ^2.30.0
 
 dev_dependencies:
   hive_generator:
