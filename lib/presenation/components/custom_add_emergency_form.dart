@@ -6,7 +6,7 @@ import 'package:safedrive/data/cubit/add_emergency_number_cubit/add_emergency_nu
 import 'package:safedrive/domain/models/emergency_model.dart';
 import 'package:safedrive/presenation/components/custom_elevated_button.dart';
 
-import 'custom_emergency_text_field.dart';
+import 'custom_text_form_field.dart';
 
 class AddEmergencyForm extends StatefulWidget {
   const AddEmergencyForm({super.key});
@@ -31,7 +31,7 @@ class _AddEmergencyFormState extends State<AddEmergencyForm> {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 32.h),
-              child: CustomEmergencyTextField(
+              child: CustomTextFormField(
                 label: AppText.name,
                 onSaved: (value) {
                   name = value;
@@ -40,7 +40,7 @@ class _AddEmergencyFormState extends State<AddEmergencyForm> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12.w),
-              child: CustomEmergencyTextField(
+              child: CustomTextFormField(
                 label: AppText.phoneNumber,
                 keyboardType: TextInputType.number,
                 onSaved: (value) {

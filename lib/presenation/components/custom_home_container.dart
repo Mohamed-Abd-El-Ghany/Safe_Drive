@@ -8,11 +8,10 @@ class CustomHomeContainer extends StatelessWidget {
   final Widget icon;
 
  const CustomHomeContainer(
-      {Key? key,
+      {super.key,
       required this.name,
       required this.navScreen,
-      required this.icon})
-      : super(key: key);
+      required this.icon});
 
   @override
   Widget build(BuildContext context) {

@@ -5,10 +5,11 @@ import '../../app/app_texts.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton(
-      {super.key, this.onPressed, this.isLoading = false});
+      {super.key, this.onPressed, this.isLoading = false, this.text});
 
   final void Function()? onPressed;
   final bool isLoading;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class CustomElevatedButton extends StatelessWidget {
               ),
             ))
           : Text(
-              AppText.add,
+              text ??AppText.add,
               style: TextStyle(color: AppColors.white, fontSize: 16.w),
             ),
     );

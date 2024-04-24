@@ -28,8 +28,8 @@ class CustomButton extends StatelessWidget {
               (route) => false);
         },
         child: Container(
-          height:height??48.h,
-          width:width?? 267.w,
+          height: height ?? 48.h,
+          width: width ?? 267.w,
           decoration: BoxDecoration(
             color: AppColors.teel,
             borderRadius: BorderRadius.circular(10.r),
@@ -38,7 +38,7 @@ class CustomButton extends StatelessWidget {
             child: Text(
               textAlign: TextAlign.center,
               selectText,
-              style:  TextStyle(
+              style: TextStyle(
                   color: AppColors.white,
                   fontSize: 15.w,
                   fontWeight: FontWeight.w500),

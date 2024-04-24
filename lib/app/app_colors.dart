@@ -11,4 +11,6 @@ class AppColors{
   static const white = Color(0xffffffff);
   static const blue = Color(0xff0051ff);
   static const red = Color(0xffff0000);
+  static const kOtpColor =Color(0xffF5F5F5);
+
 }

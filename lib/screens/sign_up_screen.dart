@@ -6,9 +6,10 @@ import 'package:safedrive/app/app_texts.dart';
 import 'package:safedrive/presenation/components/custom_button.dart';
 import 'package:safedrive/presenation/components/custom_text_field.dart';
 import 'package:safedrive/screens/login.dart';
+import 'package:safedrive/screens/verification_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+  const SignUpScreen({super.key});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -135,7 +136,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 35.h,
               ),
               CustomButton(
-                navScreen: const LoginScreen(),
+                navScreen: const VerificationScreen(),
                 selectText: AppText.create,
                 width: 150.w,
                 height: 50.h,

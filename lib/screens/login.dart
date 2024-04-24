@@ -9,6 +9,8 @@ import 'package:safedrive/presenation/components/custom_text_field.dart';
 import 'package:safedrive/presenation/components/custom_bottom_nav_bar.dart';
 import 'package:safedrive/screens/sign_up_screen.dart';
 
+import '../presenation/components/custom_modal_bottom_sheet.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -56,68 +58,53 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     //Email TextFormField
                     Padding(
-                      padding:
-                          EdgeInsets.only(top: 85.h, right: 25.w, left: 25.w),
-                      child: const CustomTextField(
-                        type: TextInputType.emailAddress,
-                        hintText: AppText.email,
-                        prefixIcon: Icon(
-                          Icons.email,
-                          color: AppColors.teel,
-                          size: 24,
-                        ),
-                      ),
+                        padding:
+                            EdgeInsets.only(top: 85.h, right: 25.w, left: 25.w),
+                        child: CustomTextField(
+                          type: TextInputType.emailAddress,
+                          hintText: AppText.email,
+                          prefixIcon: Icon(Icons.email,
+                              color: AppColors.teel, size: 24.h),
+                        )),
+                    SizedBox(
+                      height: 20.h,
                     ),
-                    SizedBox(height: 20.h),
                     //Password TextFormField
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 25.w),
+                      padding: EdgeInsets.only(
+                        right: 25.w,
+                        left: 25.w,
+                      ),
                       child: CustomTextField(
                         contentPadding: EdgeInsets.symmetric(vertical: 10.h),
                         isVisible: isObscureText,
                         type: TextInputType.visiblePassword,
                         hintText: AppText.password,
-                        prefixIcon: const Icon(
-                          Icons.lock,
-                          color: AppColors.teel,
-                          size: 24,
-                        ),
+                        prefixIcon:
+                            Icon(Icons.lock, color: AppColors.teel, size: 24.h),
                         suffixIcon: GestureDetector(
                           onTap: () {
-                            setState(
-                              () {
-                                isObscureText = !isObscureText;
-                              },
-                            );
+                            setState(() {
+                              isObscureText = !isObscureText;
+                            });
                           },
                           child: Icon(
-                            isObscureText
-                                ? CupertinoIcons.eye_slash_fill
-                                : CupertinoIcons.eye_fill,
-                            color: AppColors.teel,
-                          ),
+                              isObscureText
+                                  ? CupertinoIcons.eye_slash_fill
+                                  : CupertinoIcons.eye_fill,
+                              color: AppColors.teel),
                         ),
                       ),
                     ),
                   ],
                 ),
-                //Forget Password
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      AppText.forgetPassword,
-                      style: TextStyle(
-                          color: AppColors.black,
-                          decoration: TextDecoration.underline,
-                          fontSize: 14.h),
-                    ),
-                  ),
+                //forget password
+                const CustomBottomSheet(),
+                SizedBox(
+                  height: 20.h,
                 ),
-                SizedBox(height: 20.h),
                 CustomButton(
-                  navScreen: const BottomNavBar(),
+                  navScreen:  const BottomNavBar(),
                   selectText: AppText.login,
                   height: 60.h,
                   width: 80.w,
@@ -132,15 +119,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                        vertical: 140.h,
-                        horizontal: 10.w,
-                      ),
+                          vertical: 140.h, horizontal: 10.w),
                       child: const Text(
                         AppText.or,
                         style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                            color: AppColors.white,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                     Expanded(

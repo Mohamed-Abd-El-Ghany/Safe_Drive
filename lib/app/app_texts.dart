@@ -6,9 +6,11 @@ class AppText {
   static const String a = 'a safe one together. 🚗💨';
   static const String safe = 'Safe Drive';
   static const String face = 'Face ID';
-  static const String emergency  = 'Emergency';
+  static const String done = 'Done';
+  static const String emergency = 'Emergency';
   static const String addNewFaceId = 'Add New Face ID';
   static const String add = 'Add';
+  static const String kContinue = 'Continue';
   static const String emergencyBox = 'emergency_box';
   static const String your = 'Your AI Guardian On The Road';
   static const String next = 'Next';
@@ -23,8 +25,8 @@ class AppText {
   static const String name = 'Name';
   static const String phone = 'Phone';
   static const String phoneNumber = 'Phone Number |';
-  static const String birthDate  = 'Birth Date |';
-  static const String birthDateTime  = '3/3/1990';
+  static const String birthDate = 'Birth Date |';
+  static const String birthDateTime = '3/3/1990';
   static const String doNotHaveAcc = 'Don\'t have an account ?';
   static const String or = 'OR';
   static const String setting = 'Setting';
@@ -35,13 +37,25 @@ class AppText {
   static const String support = 'Support & About';
   static const String about = 'About';
   static const String report = 'Report a Problem';
+  static const String resendInSec = 'Resend in 30 sec';
+  static const String resetPassword = 'Reset Password';
   static const String add1 = 'Add account';
   static const String log = 'Log Out';
+  static const String submit = 'Submit';
   static const String there = 'There is someone who';
   static const String wants = 'wants to drive your car.';
   static const String call1 = 'Call Emergency';
+  static const String otpHasSent =
+      'OTP has been sent to your email.\nPlease verify.';
+  static const String congratulation = 'Congratulations';
+  static const String yourAccVerified =
+      'Your account has been verified \nsuccessfully';
+
   static const String call2 = 'Call Ambulance';
+  static const String enterYourEmail = 'Enter your email address for verification process.\nWe will send a four digit code to \nYour email address.';
   static const String call = 'Call';
+  static const String setNewPassword = 'Set the new password for your account \nso you can login and access all our features.';
+  static const String enterFourDigit = 'Enter the four digit code sent to your \nEmail address.';
   static const String call112 = '112';
   static const String call123 = '123';
   static const String call012 = '01287002189';
@@ -70,4 +84,6 @@ class AppText {
   static const String userProfile = 'User Profile';
   static const String letsGetStart = 'Let Get Started!';
   static const String alreadyHaveAcc = 'Already have account?';
+  static const String verificationCode = 'Verification Code';
+  static const String verify = 'Verify';
 }

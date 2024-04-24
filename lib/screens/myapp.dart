@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safedrive/data/cubit/emergency_item_cubit/emergency_item_cubit.dart';
+import 'package:safedrive/screens/login.dart';
+import 'package:safedrive/screens/sign_up_screen.dart';
 import 'package:safedrive/screens/splash_screen.dart';
 import '../app/app_colors.dart';
 import '../app/app_images.dart';
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
             ],
             child: const MaterialApp(
               debugShowCheckedModeBanner: false,
-              home: Splash(),
+              home: LoginScreen(),
             ),
           );
         });
