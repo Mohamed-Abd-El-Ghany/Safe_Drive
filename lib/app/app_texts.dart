@@ -39,6 +39,7 @@ class AppText {
   static const String report = 'Report a Problem';
   static const String resendInSec = 'Resend in 30 sec';
   static const String resetPassword = 'Reset Password';
+  static const String passwordreset = 'Password reset success';
   static const String add1 = 'Add account';
   static const String log = 'Log Out';
   static const String submit = 'Submit';
@@ -52,7 +53,7 @@ class AppText {
       'Your account has been verified \nsuccessfully';
 
   static const String call2 = 'Call Ambulance';
-  static const String enterYourEmail = 'Enter your email address for verification process.\nWe will send a four digit code to \nYour email address.';
+  static const String enterYourEmail = 'Enter your email address for\n verification process.\nWe will send a four digit code to \nYour email address.';
   static const String call = 'Call';
   static const String setNewPassword = 'Set the new password for your account \nso you can login and access all our features.';
   static const String enterFourDigit = 'Enter the four digit code sent to your \nEmail address.';

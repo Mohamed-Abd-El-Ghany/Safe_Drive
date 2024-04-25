@@ -13,6 +13,7 @@ class VerificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.latte1,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.teel,
@@ -29,7 +30,7 @@ class VerificationScreen extends StatelessWidget {
             Image.asset(
               AppImages.verify,
               height: 200.h,
-              width: MediaQuery.of(context).size.width,
+              width: MediaQuery.of(context).size.width.w,
               fit: BoxFit.contain,
             ),
             Container(

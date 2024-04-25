@@ -58,23 +58,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     //Email TextFormField
                     Padding(
-                        padding:
-                            EdgeInsets.only(top: 85.h, right: 25.w, left: 25.w),
-                        child: CustomTextField(
-                          type: TextInputType.emailAddress,
-                          hintText: AppText.email,
-                          prefixIcon: Icon(Icons.email,
-                              color: AppColors.teel, size: 24.h),
-                        )),
+                      padding:
+                          EdgeInsets.only(top: 85.h, right: 25.w, left: 25.w),
+                      child: CustomTextField(
+                        type: TextInputType.emailAddress,
+                        hintText: AppText.email,
+                        prefixIcon: Icon(Icons.email,
+                            color: AppColors.teel, size: 24.h),
+                      ),
+                    ),
                     SizedBox(
                       height: 20.h,
                     ),
                     //Password TextFormField
                     Padding(
-                      padding: EdgeInsets.only(
-                        right: 25.w,
-                        left: 25.w,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 25.w),
                       child: CustomTextField(
                         contentPadding: EdgeInsets.symmetric(vertical: 10.h),
                         isVisible: isObscureText,
@@ -89,10 +87,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             });
                           },
                           child: Icon(
-                              isObscureText
-                                  ? CupertinoIcons.eye_slash_fill
-                                  : CupertinoIcons.eye_fill,
-                              color: AppColors.teel),
+                            isObscureText
+                                ? CupertinoIcons.eye_slash_fill
+                                : CupertinoIcons.eye_fill,
+                            color: AppColors.teel,
+                          ),
                         ),
                       ),
                     ),
@@ -104,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 20.h,
                 ),
                 CustomButton(
-                  navScreen:  const BottomNavBar(),
+                  navScreen: const BottomNavBar(),
                   selectText: AppText.login,
                   height: 60.h,
                   width: 80.w,

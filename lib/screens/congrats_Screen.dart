@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:safedrive/app/app_colors.dart';
 import 'package:safedrive/app/app_images.dart';
 import 'package:safedrive/app/app_texts.dart';
 import 'package:safedrive/presenation/components/custom_button.dart';
@@ -11,7 +12,7 @@ class CongratsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      backgroundColor: AppColors.latte1,
       body: Column(
         children: [
           Padding(

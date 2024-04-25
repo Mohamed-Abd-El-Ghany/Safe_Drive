@@ -12,26 +12,29 @@ class EmailVerificationBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-      ),
-      width: MediaQuery.of(context).size.width,
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      width: MediaQuery.of(context).size.width.w,
       child: SingleChildScrollView(
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 28.h),
+              padding: EdgeInsets.only(
+                top: 40.h,
+                bottom: 15.h,
+              ),
               child: const Text(
                 AppText.enterFourDigit,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.white),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black,
+                ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 24.h),
+              padding: EdgeInsets.symmetric(vertical: 15.h),
               child: CustomOtpBox(),
             ),
             Container(
@@ -39,7 +42,10 @@ class EmailVerificationBottomSheet extends StatelessWidget {
               child: const Text(
                 AppText.resendInSec,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14, color: AppColors.white),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: AppColors.black,
+                ),
               ),
             ),
             Padding(
@@ -50,10 +56,13 @@ class EmailVerificationBottomSheet extends StatelessWidget {
                   showModalBottomSheet(
                       isScrollControlled: true,
                       constraints: BoxConstraints(
-                          maxHeight:
-                          MediaQuery.of(context).size.height),
+                        maxHeight: MediaQuery.of(context).size.height.h,
+                      ),
                       backgroundColor: AppColors.latte1,
                       context: context,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(70.r))),
                       builder: (context) {
                         return const ResetPasswordBottomSheet();
                       });
