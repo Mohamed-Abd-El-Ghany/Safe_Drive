@@ -4,8 +4,12 @@ import '../../app/app_colors.dart';
 import '../../app/app_texts.dart';
 
 class CustomElevatedButton extends StatelessWidget {
-  const CustomElevatedButton(
-      {super.key, this.onPressed, this.isLoading = false, this.text});
+  const CustomElevatedButton({
+    super.key,
+    this.onPressed,
+    this.isLoading = false,
+    this.text,
+  });
 
   final void Function()? onPressed;
   final bool isLoading;
@@ -20,7 +24,7 @@ class CustomElevatedButton extends StatelessWidget {
           AppColors.teel,
         ),
         fixedSize: MaterialStatePropertyAll(
-          Size(200.w, 50.h),
+          Size(150.w, 50.h),
         ),
       ),
       child: isLoading
@@ -33,8 +37,11 @@ class CustomElevatedButton extends StatelessWidget {
               ),
             ))
           : Text(
-              text ??AppText.add,
-              style: TextStyle(color: AppColors.white, fontSize: 16.w),
+              text ?? AppText.add,
+              style: TextStyle(
+                color: AppColors.white,
+                fontSize: 16.w,
+              ),
             ),
     );
   }

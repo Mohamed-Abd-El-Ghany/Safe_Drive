@@ -1,12 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safedrive/app/app_colors.dart';
 import 'package:safedrive/app/app_texts.dart';
-import 'package:safedrive/presenation/components/custom_button.dart';
-import 'package:safedrive/presenation/components/custom_text_field.dart';
+import 'package:safedrive/presenation/components/custom_text_email_field.dart';
+import 'package:safedrive/presenation/components/custom_text_password_field.dart';
+import 'package:safedrive/presenation/components/custom_text_phone_field.dart';
+import 'package:safedrive/presenation/components/custom_text_user_field.dart';
 import 'package:safedrive/screens/login.dart';
 import 'package:safedrive/screens/verification_screen.dart';
+import '../presenation/components/custom_elevated_button.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -16,7 +18,40 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  bool isVisible = true;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  void _submit() async {
+    final isValid = _formKey.currentState!.validate();
+    // _isLoading = true;
+    // setState(() {});
+    if (!isValid) {
+      return;
+    }
+    try {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (builder) => VerificationScreen(
+            email: _emailc.text,
+            password: _passwordc.text,
+            phone: _phonec.text,
+          ),
+        ),
+        (route) => false,
+      );
+    } catch (e) {}
+    _formKey.currentState!.save();
+  }
+
+
+  var _enteredEmail = '';
+  var _enteredPassword = '';
+  var _enteredUserphone = '';
+  var _enteredUsername = '';
+  //var _isUploading = false;
+  TextEditingController _emailc = TextEditingController();
+  TextEditingController _passwordc = TextEditingController();
+  TextEditingController _phonec = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,135 +61,104 @@ class _SignUpScreenState extends State<SignUpScreen> {
         elevation: 0,
         backgroundColor: AppColors.latte1,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           AppText.safe,
           style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.w500, fontSize: 24.w),
+            color: Colors.black,
+            fontWeight: FontWeight.w500,
+            fontSize: 24,
+          ),
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 25.w,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 25.w),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 35),
-                child: Text(
-                  AppText.letsGetStart,
-                  style: TextStyle(
-                    fontSize: 20.w,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 90.h,
-              ),
-              const CustomTextField(
-                type: TextInputType.name,
-                hintText: AppText.name,
-                prefixIcon: Icon(
-                  Icons.person,
-                  color: AppColors.teel,
-                ),
-              ),
-              SizedBox(
-                height: 30.h,
-              ),
-              const CustomTextField(
-                type: TextInputType.emailAddress,
-                hintText: AppText.email,
-                prefixIcon: Icon(
-                  Icons.email,
-                  color: AppColors.teel,
-                ),
-              ),
-              SizedBox(
-                height: 30.h,
-              ),
-              const CustomTextField(
-                type: TextInputType.phone,
-                hintText: AppText.phone,
-                prefixIcon: Icon(
-                  Icons.phone,
-                  color: AppColors.teel,
-                ),
-              ),
-              SizedBox(
-                height: 30.h,
-              ),
-              CustomTextField(
-                type: TextInputType.visiblePassword,
-                hintText: AppText.password,
-                prefixIcon: const Icon(
-                  Icons.lock,
-                  color: AppColors.teel,
-                ),
-                suffixIcon: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isVisible = !isVisible;
-                    });
-                  },
-                  child: Icon(
-                    isVisible
-                        ? CupertinoIcons.eye_slash_fill
-                        : CupertinoIcons.eye_fill,
-                    color: AppColors.teel,
-                  ),
-                ),
-                isVisible: isVisible,
-              ),
-              SizedBox(
-                height: 30.h,
-              ),
-              CustomTextField(
-                type: TextInputType.visiblePassword,
-                hintText: AppText.confirmPassword,
-                prefixIcon: const Icon(
-                  Icons.lock,
-                  color: AppColors.teel,
-                ),
-                suffixIcon: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isVisible = !isVisible;
-                    });
-                  },
-                  child: Icon(
-                    isVisible
-                        ? CupertinoIcons.eye_slash_fill
-                        : CupertinoIcons.eye_fill,
-                    color: AppColors.teel,
-                  ),
-                ),
-                isVisible: true,
-              ),
-              SizedBox(
-                height: 35.h,
-              ),
-              CustomButton(
-                navScreen: const VerificationScreen(),
-                selectText: AppText.create,
-                width: 150.w,
-                height: 50.h,
-              ),
-              SizedBox(
-                height: 30.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    AppText.alreadyHaveAcc,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 35.h),
+                  child: const Text(
+                    AppText.letsGetStart,
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14.w,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  TextButton(
+                ),
+                SizedBox(height: 50.h),
+                CustomTextUserField(
+                  onChanged: (value) => _enteredUsername = value,
+                  type: TextInputType.name,
+                  hintText: AppText.name,
+                  prefixIcon: const Icon(
+                    Icons.person,
+                    color: AppColors.teel,
+                  ),
+                ),
+                SizedBox(height: 5.h),
+                CustomTextEmailField(
+                  controller: _emailc,
+                  onChanged: (value) => _enteredEmail = value,
+                  type: TextInputType.emailAddress,
+                  hintText: AppText.email,
+                  prefixIcon: const Icon(
+                    Icons.email,
+                    color: AppColors.teel,
+                  ),
+                ),
+                SizedBox(height: 5.h),
+                CustomTextPhoneField(
+                  controller: _phonec,
+                  onChanged: (value) => _enteredUserphone = value,
+                  type: TextInputType.phone,
+                  hintText: AppText.phone,
+                  prefixIcon: const Icon(
+                    Icons.phone,
+                    color: AppColors.teel,
+                  ),
+                ),
+                SizedBox(height: 5.h),
+                CustomTextPasswordField(
+                  controller: _passwordc,
+                  onChanged: (value) => _enteredPassword = value,
+                  type: TextInputType.visiblePassword,
+                  hintText: AppText.password,
+                  prefixIcon: const Icon(
+                    Icons.lock,
+                    color: AppColors.teel,
+                  ),
+                ),
+                SizedBox(height: 5.h),
+                CustomTextPasswordField(
+                  onChanged: (value) => _enteredPassword = value,
+                  type: TextInputType.visiblePassword,
+                  hintText: AppText.confirmPassword,
+                  prefixIcon: const Icon(
+                    Icons.lock,
+                    color: AppColors.teel,
+                  ),
+                ),
+                SizedBox(height: 5.h),
+                CustomElevatedButton(
+                  text: AppText.create,
+                  onPressed: () {
+                    _submit();
+                  },
+                ),
+                SizedBox(height: 15.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    const Text(
+                      AppText.alreadyHaveAcc,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                      ),
+                    ),
+                    TextButton(
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
@@ -163,16 +167,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         );
                       },
-                      child: Text(
+                      child: const Text(
                         AppText.loginHere,
-                        style: TextStyle(color: AppColors.teel, fontSize: 14.h),
-                      )),
-                ],
-              ),
-            ],
+                        style: TextStyle(
+                          color: AppColors.teel,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailc.dispose();
+    _passwordc.dispose();
+    _phonec.dispose();
+    super.dispose();
   }
 }

@@ -3,14 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../app/app_colors.dart';
 
 // ignore: must_be_immutable
-class CustomButton extends StatelessWidget {
+class CustomButton2 extends StatelessWidget {
   final Widget? navScreen;
   final bool? valid;
   final Function? submit;
   String selectText;
   final double? height, width;
 
-  CustomButton({
+  CustomButton2({
     super.key,
     required this.navScreen,
     required this.selectText,
@@ -29,10 +29,6 @@ class CustomButton extends StatelessWidget {
         key: _formKey,
         child: InkWell(
           onTap: () {
-            if (valid == true) {
-              submit!();
-            }
-            if (valid == false) {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
@@ -40,7 +36,6 @@ class CustomButton extends StatelessWidget {
                 ),
                     (route) => false,
               );
-            }
           },
           child: Container(
             height: height ?? 48.h,

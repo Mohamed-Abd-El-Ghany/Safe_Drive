@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safedrive/app/app_images.dart';
-import 'package:safedrive/presenation/components/custom_text_field.dart';
+import 'package:safedrive/presenation/components/custom_text_email_field.dart';
+import 'package:safedrive/presenation/components/custom_text_password_field.dart';
 import 'package:safedrive/screens/login.dart';
 import '../app/app_colors.dart';
 import '../app/app_texts.dart';
@@ -59,7 +60,7 @@ class _ResetPasswordBottomSheetState extends State<ResetPasswordBottomSheet> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.w),
-                child: CustomTextField(
+                child: CustomTextPasswordField(
                   contentPadding: EdgeInsets.symmetric(vertical: 10.h),
                   isVisible: isVisible,
                   type: TextInputType.visiblePassword,
@@ -86,7 +87,7 @@ class _ResetPasswordBottomSheetState extends State<ResetPasswordBottomSheet> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.w),
-                child: CustomTextField(
+                child: CustomTextPasswordField(
                   contentPadding: EdgeInsets.symmetric(vertical: 10.h),
                   isVisible: isVisible,
                   type: TextInputType.visiblePassword,

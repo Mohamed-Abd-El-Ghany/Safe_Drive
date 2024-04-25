@@ -1,13 +1,55 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safedrive/presenation/components/custom_elevated_button.dart';
-import 'package:safedrive/presenation/components/custom_text_field.dart';
+import 'package:safedrive/presenation/components/custom_text_email_field.dart';
 import '../../app/app_colors.dart';
 import '../../app/app_texts.dart';
 import '../../screens/email_verification_bottom_sheet.dart';
 
-class CustomBottomSheet extends StatelessWidget {
+final _firebase = FirebaseAuth.instance;
+
+class CustomBottomSheet extends StatefulWidget {
   const CustomBottomSheet({super.key});
+
+  @override
+  State<CustomBottomSheet> createState() => _CustomBottomSheetState();
+}
+
+class _CustomBottomSheetState extends State<CustomBottomSheet> {
+  void _submit() async {
+    final isValid = _formKey.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+    try {
+      await _firebase.sendPasswordResetEmail(
+        email: _enteredEmail,
+      );
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            content: Text('Password reset link sent! \n Check your email'),
+          );
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(e.message.toString()),
+          );
+        },
+      );
+    }
+    _formKey.currentState!.save();
+  }
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  var _enteredEmail = '';
 
   @override
   Widget build(BuildContext context) {
@@ -38,67 +80,59 @@ class CustomBottomSheet extends StatelessWidget {
                         children: [
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 8.w),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 28.h),
-                                  child: const Text(
+                            child: Form(
+                              key: _formKey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 28.h),
+                                    child: const Text(
+                                      textAlign: TextAlign.center,
+                                      AppText.forgetPassword,
+                                      style: TextStyle(
+                                        color: AppColors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                  const Text(
                                     textAlign: TextAlign.center,
-                                    AppText.forgetPassword,
+                                    AppText.enterYourEmail,
                                     style: TextStyle(
                                       color: AppColors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
                                     ),
                                   ),
-                                ),
-                                const Text(
-                                  textAlign: TextAlign.center,
-                                  AppText.enterYourEmail,
-                                  style: TextStyle(
-                                    color: AppColors.black,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                SizedBox(height: 25.h),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15.w),
-                                  child: const CustomTextField(
-                                    type: TextInputType.emailAddress,
-                                    hintText: AppText.email,
-                                    prefixIcon: Icon(
-                                      Icons.email,
-                                      color: AppColors.teel,
-                                      size: 24,
+                                  SizedBox(height: 25.h),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 15.w),
+                                    child: CustomTextEmailField(
+                                      onChanged: (value) =>
+                                          _enteredEmail = value,
+                                      type: TextInputType.emailAddress,
+                                      hintText: AppText.email,
+                                      prefixIcon: const Icon(
+                                        Icons.email,
+                                        color: AppColors.teel,
+                                        size: 24,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 35.h),
-                                  child: CustomElevatedButton(
-                                    text: AppText.submit,
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          constraints: BoxConstraints(
-                                              maxHeight: MediaQuery.of(context).size.height.h),
-                                          backgroundColor: AppColors.latte1,
-                                          context: context,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.vertical(
-                                              top: Radius.circular(70.r),
-                                            ),
-                                          ),
-                                          builder: (context) {
-                                            return const EmailVerificationBottomSheet();
-                                          });
-                                    },
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 35.h),
+                                    child: CustomElevatedButton(
+                                      text: AppText.submit,
+                                      onPressed: _submit,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ],

@@ -8,8 +8,8 @@ class AppImages {
   static const String pic6 = '${imagePath}pic6.png';
   static const String pic7 = '${imagePath}pic7.png';
   static const String pic8 = '${imagePath}pic8.png';
+  static const String pic9 = '${imagePath}pic9.png';
   static const String busPic = '${imagePath}rafiki.png';
-  static const String success = '${imagePath}success1.png';
   static const String verify = '${imagePath}verify.png';
   static const String congrats = '${imagePath}congrats.png';
 }

@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safedrive/app/app_colors.dart';
 import 'package:safedrive/app/app_images.dart';
 import 'package:safedrive/app/app_texts.dart';
-import 'package:safedrive/presenation/components/custom_button.dart';
-import 'package:safedrive/screens/login.dart';
+import '../presenation/components/custom_bottom_nav_bar.dart';
+import '../presenation/components/custom_button2.dart';
 
 class CongratsScreen extends StatelessWidget {
   const CongratsScreen({super.key});
@@ -16,23 +16,24 @@ class CongratsScreen extends StatelessWidget {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 50.h, horizontal: 20.w),
+            padding: EdgeInsets.symmetric(vertical: 75.h, horizontal: 20.w),
             child: Center(
               child: Image.asset(
                 AppImages.congrats,
-                width: MediaQuery.of(context).size.width,
-                height: 400.h,
+                width: MediaQuery.of(context).size.width.w,
+                height: 300.h,
               ),
             ),
           ),
           const Text(
             AppText.congratulation,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-          SizedBox(
-            height: 16.h,
-          ),
+          SizedBox(height: 16.h),
           const Text(
             AppText.yourAccVerified,
             textAlign: TextAlign.center,
@@ -40,21 +41,20 @@ class CongratsScreen extends StatelessWidget {
               fontSize: 17,
             ),
           ),
-          SizedBox(
-            height: 16.h,
-          ),
-          // Image.asset(
-          //   AppImages.success,
-          //   width: 70.w,
-          // ),
-
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 54.h),
-            child: CustomButton(
-              navScreen: const LoginScreen(),
+            padding: EdgeInsets.symmetric(vertical: 40.h),
+            child: Image.asset(
+              AppImages.pic9,
+              width: 70.w,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 40.h),
+            child: CustomButton2(
+              navScreen: const BottomNavBar(),
               selectText: AppText.done,
             ),
-          )
+          ),
         ],
       ),
     );
