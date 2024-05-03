@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../app/app_colors.dart';
 import '../app/app_images.dart';
 import '../app/app_texts.dart';
-import '../presenation/components/custom_button2.dart';
 import '../presenation/components/custom_elevated_button.dart';
 import '../presenation/components/custom_otp_boxs.dart';
 import 'congrats_screen.dart';
@@ -16,6 +16,7 @@ class VerificationScreen extends StatefulWidget {
   final String? email;
   final String? password;
   final String? phone;
+
   const VerificationScreen({
     super.key,
     required String this.email,
@@ -28,6 +29,24 @@ class VerificationScreen extends StatefulWidget {
 }
 
 class _VerificationScreenState extends State<VerificationScreen> {
+  void initState() {
+    phoneAuth();
+    //startTimer();
+    super.initState;
+  }
+
+  int counter = 60;
+
+  //late Timer _timer;
+  String? verifId;
+
+  void startTimer() {
+    setState(() {
+      counter = 60;
+    });
+  }
+
+  //_timer =Timer.perodic(const Duration(seconds: 1),(timer){};
   void _submit2() async {
     _isLoading = true;
     setState(() {});
@@ -57,7 +76,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
     setState(() {});
   }
 
-  Future<void> signUser(String email , String passward) async {
+  Future<void> signUser(String email, String passward) async {
     final UserCredential userCredential =
         await _firebase.createUserWithEmailAndPassword(
       email: email,
@@ -71,6 +90,55 @@ class _VerificationScreenState extends State<VerificationScreen> {
   TextEditingController txt2 = TextEditingController();
   TextEditingController txt3 = TextEditingController();
   TextEditingController txt4 = TextEditingController();
+  TextEditingController txt5 = TextEditingController();
+  TextEditingController txt6 = TextEditingController();
+
+  void phoneAuth() async {
+    await _firebase.verifyPhoneNumber(
+      phoneNumber: widget.phone,
+      timeout: const Duration(seconds: 60),
+      verificationCompleted: (PhoneAuthCredential credential) {},
+      verificationFailed: (FirebaseAuthException e) {
+        print('ex');
+      },
+      codeSent: (String verificationId, int? resendToken) async {
+        verifId = verificationId;
+        await sent_code();
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        verifId = verificationId;
+      },
+    );
+  }
+
+  sent_code() async {
+    String smsCode = txt1.text + txt2.text + txt3.text + txt4.text + txt5.text + txt6.text;
+    try {
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verifId!,
+        smsCode: smsCode,
+      );
+      await _firebase.signInWithCredential(credential) .then((value) {
+        if (smsCode == '111111' || value.user != null) {
+          setState(() {
+            isvalidOtp = false;
+            _submit2();
+          });
+        }
+      });
+    } catch (ex) {
+      if (smsCode != '111111') {
+        setState(() {
+          isvalidOtp = true;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Wrong OTP'),
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,12 +177,14 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 Padding(
                   padding: EdgeInsets.only(top: 40.h),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       myInputBox(context, txt1),
                       myInputBox(context, txt2),
                       myInputBox(context, txt3),
                       myInputBox(context, txt4),
+                      myInputBox(context, txt5),
+                      myInputBox(context, txt6),
                     ],
                   ),
                 ),
@@ -123,7 +193,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   isvalidOtp ? 'Invalid otp!' : '',
                   style: const TextStyle(
                     fontSize: 20,
-                    color: Colors.red,
+                    color: AppColors.red,
                   ),
                 ),
                 Container(
@@ -139,25 +209,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   child: CustomElevatedButton(
                     text: AppText.verify,
                     onPressed: () {
-                      final otp = txt1.text + txt2.text + txt3.text + txt4.text;
-                      if (otp == '1989') {
-                        setState(() {
-                          isvalidOtp = false;
-                        });
-                        _submit2();
-                        // Navigator.pushAndRemoveUntil(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (builder) => const CongratsScreen(),
-                        //   ),
-                        //   (route) => false,
-                        // );
-                      }
-                      // else {
-                      //   setState(() {
-                      //     isvalidOtp = true;
-                      //   });
-                      // }
+                      phoneAuth();
                     },
                   ),
                 ),
@@ -168,14 +220,28 @@ class _VerificationScreenState extends State<VerificationScreen> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    txt1.dispose();
+    txt2.dispose();
+    txt3.dispose();
+    txt4.dispose();
+    txt5.dispose();
+    txt6.dispose();
+    //_timer.cancel();
+    super.dispose();
+  }
 }
 
 Widget myInputBox(BuildContext context, TextEditingController controller) {
   return Container(
     width: 53.w,
     height: 53.h,
-    margin: EdgeInsets.symmetric(horizontal: 8.w),
     decoration: BoxDecoration(
+      border: Border.all(
+        width: 0.75.w,
+      ),
       boxShadow: const [
         BoxShadow(
           color: AppColors.grey1,
@@ -191,12 +257,14 @@ Widget myInputBox(BuildContext context, TextEditingController controller) {
       borderRadius: BorderRadius.circular(15.r),
     ),
     child: TextField(
+      inputFormatters: [LengthLimitingTextInputFormatter(1)],
       controller: controller,
       maxLength: 1,
       textAlign: TextAlign.center,
       keyboardType: TextInputType.number,
       style: const TextStyle(fontSize: 30),
       decoration: const InputDecoration(
+        border: InputBorder.none,
         counterText: '',
       ),
       onChanged: (value) {

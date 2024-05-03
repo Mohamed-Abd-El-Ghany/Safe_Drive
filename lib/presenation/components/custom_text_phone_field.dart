@@ -29,7 +29,6 @@ class CustomTextPhoneField extends StatefulWidget {
 }
 
 class _CustomTextPhoneFieldState extends State<CustomTextPhoneField> {
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -37,12 +36,11 @@ class _CustomTextPhoneFieldState extends State<CustomTextPhoneField> {
       child: TextFormField(
         onChanged: widget.onChanged,
         validator: (value) {
-          if (value == null ||
-              value.isEmpty ||
-              value.trim().length < 11 ||
-              value.trim().length > 11
-          ) {
+          if (value == null || value.isEmpty ) {
             return 'Please enter a valid phone number.';
+          }
+          if (!RegExp(r'^\+20\s?\d{10}$').hasMatch(value)) {
+            return 'Please enter a valid Egyptian phone number starting with +20.';
           }
           return null;
         },

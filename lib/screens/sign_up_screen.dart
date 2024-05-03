@@ -28,17 +28,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
       return;
     }
     try {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (builder) => VerificationScreen(
-            email: _emailc.text,
-            password: _passwordc.text,
-            phone: _phonec.text,
+      if(_passwordc1.text == _passwordc2.text) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (builder) =>
+                VerificationScreen(
+                  email: _emailc.text,
+                  password: _passwordc1.text,
+                  phone: _phonec.text,
+                ),
           ),
-        ),
-        (route) => false,
-      );
+              (route) => false,
+        );
+      }
+      else{
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Password must equal confirm password'),
+          ),
+        );
+      }
     } catch (e) {}
     _formKey.currentState!.save();
   }
@@ -50,7 +60,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var _enteredUsername = '';
   //var _isUploading = false;
   TextEditingController _emailc = TextEditingController();
-  TextEditingController _passwordc = TextEditingController();
+  TextEditingController _passwordc1 = TextEditingController();
+  TextEditingController _passwordc2 = TextEditingController();
   TextEditingController _phonec = TextEditingController();
 
   @override
@@ -113,7 +124,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: _phonec,
                   onChanged: (value) => _enteredUserphone = value,
                   type: TextInputType.phone,
-                  hintText: AppText.phone,
+                  hintText: AppText.phone + ' ( +20 0000000000 )',
                   prefixIcon: const Icon(
                     Icons.phone,
                     color: AppColors.teel,
@@ -121,7 +132,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 SizedBox(height: 5.h),
                 CustomTextPasswordField(
-                  controller: _passwordc,
+                  controller: _passwordc1,
                   onChanged: (value) => _enteredPassword = value,
                   type: TextInputType.visiblePassword,
                   hintText: AppText.password,
@@ -132,6 +143,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 SizedBox(height: 5.h),
                 CustomTextPasswordField(
+                  controller: _passwordc2,
                   onChanged: (value) => _enteredPassword = value,
                   type: TextInputType.visiblePassword,
                   hintText: AppText.confirmPassword,
@@ -184,11 +196,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
-
   @override
   void dispose() {
     _emailc.dispose();
-    _passwordc.dispose();
+    _passwordc1.dispose();
+    _passwordc2.dispose();
     _phonec.dispose();
     super.dispose();
   }
