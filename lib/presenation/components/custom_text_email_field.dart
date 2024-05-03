@@ -49,14 +49,20 @@ class _CustomTextEmailFieldState extends State<CustomTextEmailField> {
         keyboardType: widget.type ?? TextInputType.emailAddress,
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.teel, width: 2.w),
+            borderSide: BorderSide(
+              color: AppColors.teel,
+              width: 2.w,
+            ),
           ),
           filled: true,
           fillColor: AppColors.latte0,
           prefixIcon: widget.prefixIcon,
           suffixIcon: widget.suffixIcon,
           contentPadding: widget.contentPadding ??
-              EdgeInsets.symmetric(horizontal: 10.h, vertical: 10.w),
+              EdgeInsets.symmetric(
+                horizontal: 10.h,
+                vertical: 10.w,
+              ),
           labelText: widget.hintText,
           hoverColor: AppColors.latte1,
           labelStyle: const TextStyle(color: AppColors.grey1),

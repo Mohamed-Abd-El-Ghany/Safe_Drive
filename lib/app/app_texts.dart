@@ -37,7 +37,7 @@ class AppText {
   static const String support = 'Support & About';
   static const String about = 'About';
   static const String report = 'Report a Problem';
-  static const String resendInSec = 'Resend in 30 sec';
+  static const String resendInSec = 'Resend in ';
   static const String resetPassword = 'Reset Password';
   static const String passwordreset = 'Password reset success';
   static const String add1 = 'Add account';
