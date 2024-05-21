@@ -5,7 +5,6 @@ import 'package:safedrive/presenation/components/custom_elevated_button.dart';
 import 'package:safedrive/presenation/components/custom_text_email_field.dart';
 import '../../app/app_colors.dart';
 import '../../app/app_texts.dart';
-import '../../screens/email_verification_bottom_sheet.dart';
 
 final _firebase = FirebaseAuth.instance;
 

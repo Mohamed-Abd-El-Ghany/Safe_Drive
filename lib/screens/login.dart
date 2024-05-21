@@ -1,9 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:safedrive/app/app_colors.dart';
@@ -12,7 +9,6 @@ import 'package:safedrive/app/app_texts.dart';
 import 'package:safedrive/presenation/components/custom_button.dart';
 import 'package:safedrive/presenation/components/custom_text_email_field.dart';
 import 'package:safedrive/presenation/components/custom_bottom_nav_bar.dart';
-import 'package:safedrive/screens/home_screen.dart';
 import 'package:safedrive/screens/sign_up_screen.dart';
 import '../presenation/components/custom_elevated_button.dart';
 import '../presenation/components/custom_modal_bottom_sheet.dart';
@@ -71,8 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var _enteredEmail = '';
   var _enteredPassword = '';
-  var _isSignup1 = false;
-  var _isUploading = false;
+  final _isSignup1 = false;
 
   @override
   Widget build(BuildContext context) {

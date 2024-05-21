@@ -23,7 +23,7 @@ class AppText {
   static const String create = 'Create';
   static const String signUp = 'Sign Up';
   static const String name = 'Name';
-  static const String phone = 'Phone';
+  static const String phone = 'Phone (+20 0000000000) ';
   static const String phoneNumber = 'Phone Number |';
   static const String birthDate = 'Birth Date |';
   static const String birthDateTime = '3/3/1990';
