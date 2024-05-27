@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../app/app_colors.dart';
 
-
-class CustomSettingContainer extends StatelessWidget {
-  const CustomSettingContainer(
-      {super.key,
-      required this.firstIcon,
-      required this.secondIcon,
-      required this.thirdIcon,
-      required this.firstText,
-      required this.secondText,
-      required this.thirdText});
+class CustomSettingContainer2 extends StatelessWidget {
+  const CustomSettingContainer2({
+    super.key,
+    required this.firstIcon,
+    required this.secondIcon,
+    required this.thirdIcon,
+    required this.firstText,
+    required this.secondText,
+    required this.thirdText,
+    //required this.navScreen,
+  });
 
   final IconData firstIcon;
   final IconData secondIcon;
@@ -20,6 +21,7 @@ class CustomSettingContainer extends StatelessWidget {
   final String firstText;
   final String secondText;
   final String thirdText;
+  //final Widget? navScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class CustomSettingContainer extends StatelessWidget {
                   size: 26.w,
                 ),
                 SizedBox(
-                  width: 95.w,
+                  width: 75.w,
                 ),
                 Text(
                   firstText,
@@ -68,7 +70,7 @@ class CustomSettingContainer extends StatelessWidget {
                   secondIcon,
                   size: 25.w,
                 ),
-                SizedBox(width: 95.w),
+                SizedBox(width: 75.w),
                 Text(
                   secondText,
                   style: TextStyle(
@@ -88,7 +90,7 @@ class CustomSettingContainer extends StatelessWidget {
                   size: 25.w,
                 ),
                 SizedBox(
-                  width: 95.w,
+                  width: 75.w,
                 ),
                 Text(
                   thirdText,

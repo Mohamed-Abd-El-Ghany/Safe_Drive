@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../app/app_colors.dart';
 
 class CustomHomeContainer extends StatelessWidget {
- final Widget navScreen;
+  final Widget navScreen;
   final String name;
   final Widget icon;
 
- const CustomHomeContainer(
+  const CustomHomeContainer(
       {super.key,
       required this.name,
       required this.navScreen,
@@ -23,8 +23,8 @@ class CustomHomeContainer extends StatelessWidget {
         );
       },
       child: Container(
-        width: 120.w,
-        height: 140.h,
+        width: 130.w,
+        height: 150.h,
         margin: EdgeInsets.only(bottom: 10.h),
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,

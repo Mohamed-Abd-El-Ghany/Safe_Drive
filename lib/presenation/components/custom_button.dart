@@ -29,18 +29,25 @@ class CustomButton extends StatelessWidget {
         key: _formKey,
         child: InkWell(
           onTap: () {
-            if (valid == true) {
-              submit!();
-            }
-            if (valid == false) {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (builder) => navScreen!,
-                ),
-                    (route) => false,
-              );
-            }
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (builder) => navScreen!,
+              ),
+                  (route) => false,
+            );
+            // if (valid == true) {
+            //   submit!();
+            // }
+            // if (valid == false) {
+            //   Navigator.pushAndRemoveUntil(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (builder) => navScreen!,
+            //     ),
+            //         (route) => false,
+            //   );
+            // }
           },
           child: Container(
             height: height ?? 48.h,

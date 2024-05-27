@@ -48,7 +48,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var _enteredPassword = '';
   var _enteredUserphone = '';
   var _enteredUsername = '';
-  //var _isUploading = false;
   TextEditingController _emailc = TextEditingController();
   TextEditingController _passwordc = TextEditingController();
   TextEditingController _phonec = TextEditingController();

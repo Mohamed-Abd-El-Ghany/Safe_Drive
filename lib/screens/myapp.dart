@@ -1,16 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safedrive/data/cubit/emergency_item_cubit/emergency_item_cubit.dart';
-import 'package:safedrive/screens/login.dart';
-import 'package:safedrive/screens/sign_up_screen.dart';
 import 'package:safedrive/screens/splash_screen.dart';
-import 'package:safedrive/screens/verification_screen.dart';
+import 'package:safedrive/screens/splash_screen2.dart';
 import '../app/app_colors.dart';
 import '../app/app_images.dart';
 import '../app/app_texts.dart';
 import '../presenation/components/custom_button.dart';
+import 'login.dart';
 import 'opening1.dart';
 
 class MyApp extends StatelessWidget {
@@ -28,9 +28,23 @@ class MyApp extends StatelessWidget {
                 create: (context) => EmergencyItemCubit(),
               )
             ],
-            child: const MaterialApp(
+            child: MaterialApp(
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(seedColor: AppColors.teel),
+              ),
               debugShowCheckedModeBanner: false,
-              home: LoginScreen(),
+              home: StreamBuilder(
+                stream: FirebaseAuth.instance.authStateChanges(),
+                builder: ((context, snapshot) {
+                  if (snapshot.hasData == true) {
+                    return const Splash2();
+                  }
+                  if (snapshot.hasData == false) {
+                    return const Splash();
+                  }
+                  return const LoginScreen();
+                }),
+              ),
             ),
           );
         });

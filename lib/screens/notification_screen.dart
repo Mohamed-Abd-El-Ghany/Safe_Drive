@@ -24,6 +24,16 @@ class NotificationScreen extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        leading: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: AppColors.latte0,
+            size: 30.w,
+          ),
+        ),
         actions: const [
           Padding(
             padding: EdgeInsets.only(right: 20),

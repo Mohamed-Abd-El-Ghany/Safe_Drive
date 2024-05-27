@@ -6,6 +6,7 @@ import 'package:safedrive/screens/home_screen.dart';
 import 'package:safedrive/screens/notification_screen.dart';
 import 'package:safedrive/screens/profile_screen.dart';
 import '../../app/app_colors.dart';
+import '../../screens/settings.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -18,8 +19,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int currentIndex = 0;
   final List<Widget> screenOption = [
     const HomeScreen(),
-    const NotificationScreen(),
-    const ProfileScreen()
+    const ProfileScreen(),
+    const SettingsScreen(),
   ];
 
   void changeItem(int value) {
@@ -45,12 +46,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
             size: 25.w,
           ),
           Icon(
-            CupertinoIcons.bell,
+            Icons.account_circle,
             color: currentIndex == 1 ? AppColors.teel : AppColors.latte1,
             size: 25.w,
           ),
           Icon(
-            Icons.account_circle,
+            Icons.settings,
             color: currentIndex == 2 ? AppColors.teel : AppColors.latte1,
             size: 25.w,
           ),

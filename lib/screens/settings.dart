@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safedrive/app/app_colors.dart';
 import 'package:safedrive/app/app_texts.dart';
-import '../presenation/components/custom_setting_container.dart';
+import 'package:safedrive/presenation/components/custom_setting_container3.dart';
+import '../presenation/components/custom_setting_container1.dart';
+import '../presenation/components/custom_setting_container2.dart';
 
 
 class SettingsScreen extends StatelessWidget {
@@ -24,16 +26,6 @@ class SettingsScreen extends StatelessWidget {
             fontSize: 20.w,
           ),
         ),
-        leading: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Icon(
-            Icons.arrow_back,
-            color: AppColors.latte0,
-            size: 30.w,
-          ),
-        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20),
@@ -46,9 +38,9 @@ class SettingsScreen extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 32.h),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 28.h),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text(
               AppText.account,
@@ -58,12 +50,12 @@ class SettingsScreen extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-              child: const CustomSettingContainer(
+              child: const CustomSettingContainer1(
                 firstIcon: Icons.person,
                 firstText: AppText.editProfile,
                 secondIcon: Icons.security,
                 secondText: AppText.security,
-                thirdIcon: CupertinoIcons.bell,
+                thirdIcon: CupertinoIcons.bell_fill,
                 thirdText: AppText.notification,
               ),
             ),
@@ -77,12 +69,12 @@ class SettingsScreen extends StatelessWidget {
             SizedBox(height: 10.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-              child: const CustomSettingContainer(
-                firstIcon: CupertinoIcons.question_circle,
+              child: const CustomSettingContainer2(
+                firstIcon: CupertinoIcons.question_circle_fill,
                 firstText: AppText.help,
-                secondIcon: CupertinoIcons.doc_text_search,
+                secondIcon: CupertinoIcons.doc_checkmark_fill,
                 secondText: AppText.terms,
-                thirdIcon: CupertinoIcons.exclamationmark_circle,
+                thirdIcon: CupertinoIcons.exclamationmark_circle_fill,
                 thirdText: AppText.about,
               ),
             ),
@@ -96,7 +88,7 @@ class SettingsScreen extends StatelessWidget {
             SizedBox(height: 10.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-              child: const CustomSettingContainer(
+              child: const CustomSettingContainer3(
                 firstIcon: CupertinoIcons.doc_text_fill,
                 firstText: AppText.report,
                 secondIcon: CupertinoIcons.person_add_solid,

@@ -2,12 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safedrive/screens/emergency_view.dart';
-//import 'package:safedrive/screens/location.dart';
-import 'package:safedrive/screens/settings.dart';
+import 'package:safedrive/screens/location.dart';
 import '../app/app_colors.dart';
 import '../app/app_texts.dart';
 import '../presenation/components/custom_home_container.dart';
-import 'face_id.dart';
+import 'notification_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -36,23 +35,23 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomHomeContainer(
-                name: AppText.setting,
+                name: AppText.location,
                 icon: Icon(
-                  Icons.settings,
+                  Icons.location_on,
                   color: AppColors.teel,
                   size: 40.w,
                 ),
-                navScreen: const SettingsScreen(),
+                navScreen: const Location(),
               ),
               SizedBox(width: 50.w),
               CustomHomeContainer(
-                name: AppText.emergency,
+                name: AppText.notification,
                 icon: Icon(
-                  Icons.person,
+                  CupertinoIcons.bell_fill,
                   color: AppColors.teel,
                   size: 40.w,
                 ),
-                navScreen: const Emergency(),
+                navScreen: const NotificationScreen(),
               ),
             ],
           ),
@@ -60,25 +59,25 @@ class HomeScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomHomeContainer(
-                name: AppText.faceId,
-                icon: Icon(
-                  CupertinoIcons.camera_viewfinder,
-                  color: AppColors.teel,
-                  size: 40.w,
-                ),
-                navScreen: const FaceId(),
-              ),
-              //SizedBox(width: 50.w),
               // CustomHomeContainer(
-              //   name: AppText.location,
+              //   name: AppText.faceId,
               //   icon: Icon(
-              //     Icons.location_on,
+              //     CupertinoIcons.camera_viewfinder,
               //     color: AppColors.teel,
               //     size: 40.w,
               //   ),
-              //   navScreen: const Location(),
-              //),
+              //   navScreen: const FaceId(),
+              // ),
+              //SizedBox(width: 50.w),
+              CustomHomeContainer(
+                name: AppText.emergency,
+                icon: Icon(
+                  CupertinoIcons.exclamationmark_triangle_fill,
+                  color: AppColors.teel,
+                  size: 40.w,
+                ),
+                navScreen: const Emergency(),
+              ),
             ],
           ),
         ],

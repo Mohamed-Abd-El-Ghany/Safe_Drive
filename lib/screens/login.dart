@@ -26,12 +26,12 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   void _submit() async {
     final isValid = _formKey.currentState!.validate();
-    _isLoading = true;
     setState(() {});
     if (!isValid) {
       return;
     }
     try {
+      _isLoading = true;
       await loginUser();
       Navigator.pushAndRemoveUntil(
         context,
