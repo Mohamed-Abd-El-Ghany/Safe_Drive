@@ -145,9 +145,10 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
           child: const Text(
             AppText.forgetPassword,
             style: TextStyle(
-                color: AppColors.black,
-                decoration: TextDecoration.underline,
-                fontSize: 14),
+              color: AppColors.black,
+              decoration: TextDecoration.underline,
+              fontSize: 14,
+            ),
           )),
     );
   }

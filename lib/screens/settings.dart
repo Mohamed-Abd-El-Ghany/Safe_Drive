@@ -70,8 +70,8 @@ class SettingsScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
               child: const CustomSettingContainer2(
-                firstIcon: CupertinoIcons.question_circle_fill,
-                firstText: AppText.help,
+                firstIcon: Icons.language_sharp,
+                firstText: AppText.language,
                 secondIcon: CupertinoIcons.doc_checkmark_fill,
                 secondText: AppText.terms,
                 thirdIcon: CupertinoIcons.exclamationmark_circle_fill,
@@ -91,10 +91,8 @@ class SettingsScreen extends StatelessWidget {
               child: const CustomSettingContainer3(
                 firstIcon: CupertinoIcons.doc_text_fill,
                 firstText: AppText.report,
-                secondIcon: CupertinoIcons.person_add_solid,
-                secondText: AppText.add,
-                thirdIcon: Icons.logout,
-                thirdText: AppText.log,
+                secondIcon: Icons.logout,
+                secondText: AppText.log,
               ),
             ),
           ],

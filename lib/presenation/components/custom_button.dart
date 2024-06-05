@@ -36,18 +36,6 @@ class CustomButton extends StatelessWidget {
               ),
                   (route) => false,
             );
-            // if (valid == true) {
-            //   submit!();
-            // }
-            // if (valid == false) {
-            //   Navigator.pushAndRemoveUntil(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (builder) => navScreen!,
-            //     ),
-            //         (route) => false,
-            //   );
-            // }
           },
           child: Container(
             height: height ?? 48.h,

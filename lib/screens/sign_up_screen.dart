@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safedrive/app/app_colors.dart';
@@ -8,6 +9,7 @@ import 'package:safedrive/presenation/components/custom_text_phone_field.dart';
 import 'package:safedrive/presenation/components/custom_text_user_field.dart';
 import 'package:safedrive/screens/login.dart';
 import 'package:safedrive/screens/verification_screen.dart';
+import 'package:safedrive/widgets/user_image.dart';
 import '../presenation/components/custom_elevated_button.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -22,9 +24,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   void _submit() async {
     final isValid = _formKey.currentState!.validate();
-    // _isLoading = true;
-    // setState(() {});
-    if (!isValid) {
+    if (selectedImage == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('You should add your face data'),
+        ),
+      );
+    }
+    if (!isValid || selectedImage == null) {
       return;
     }
     try {
@@ -32,25 +39,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
         context,
         MaterialPageRoute(
           builder: (builder) => VerificationScreen(
-            email: _emailc.text,
-            password: _passwordc.text,
-            phone: _phonec.text,
+            username: usernamec.text,
+            email: emailc.text,
+            password: passwordc.text,
+            phone: phonec.text,
+            selectedImage: selectedImage!,
           ),
         ),
         (route) => false,
       );
-    } catch (e) {}
+    } catch (e) {
+      null;
+    }
     _formKey.currentState!.save();
   }
-
 
   var _enteredEmail = '';
   var _enteredPassword = '';
   var _enteredUserphone = '';
   var _enteredUsername = '';
-  TextEditingController _emailc = TextEditingController();
-  TextEditingController _passwordc = TextEditingController();
-  TextEditingController _phonec = TextEditingController();
+  File? selectedImage;
+  final TextEditingController usernamec = TextEditingController();
+  final TextEditingController emailc = TextEditingController();
+  final TextEditingController passwordc = TextEditingController();
+  final TextEditingController phonec = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 35.h),
+                  padding: EdgeInsets.symmetric(vertical: 15.h),
                   child: const Text(
                     AppText.letsGetStart,
                     style: TextStyle(
@@ -86,8 +98,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 50.h),
+                UserImagePicker(
+                  onPickImage: (File pickedImage) {
+                    selectedImage = pickedImage;
+                  },
+                ),
+                SizedBox(height: 10.h),
                 CustomTextUserField(
+                  controller: usernamec,
                   onChanged: (value) => _enteredUsername = value,
                   type: TextInputType.name,
                   hintText: AppText.name,
@@ -96,9 +114,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     color: AppColors.teel,
                   ),
                 ),
-                SizedBox(height: 5.h),
+                SizedBox(height: 6.h),
                 CustomTextEmailField(
-                  controller: _emailc,
+                  controller: emailc,
                   onChanged: (value) => _enteredEmail = value,
                   type: TextInputType.emailAddress,
                   hintText: AppText.email,
@@ -107,9 +125,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     color: AppColors.teel,
                   ),
                 ),
-                SizedBox(height: 5.h),
+                SizedBox(height: 6.h),
                 CustomTextPhoneField(
-                  controller: _phonec,
+                  controller: phonec,
                   onChanged: (value) => _enteredUserphone = value,
                   type: TextInputType.phone,
                   hintText: AppText.phone,
@@ -118,9 +136,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     color: AppColors.teel,
                   ),
                 ),
-                SizedBox(height: 5.h),
+                SizedBox(height: 6.h),
                 CustomTextPasswordField(
-                  controller: _passwordc,
+                  controller: passwordc,
                   onChanged: (value) => _enteredPassword = value,
                   type: TextInputType.visiblePassword,
                   hintText: AppText.password,
@@ -129,7 +147,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     color: AppColors.teel,
                   ),
                 ),
-                SizedBox(height: 5.h),
+                SizedBox(height: 6.h),
                 CustomTextPasswordField(
                   onChanged: (value) => _enteredPassword = value,
                   type: TextInputType.visiblePassword,
@@ -139,14 +157,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     color: AppColors.teel,
                   ),
                 ),
-                SizedBox(height: 5.h),
+                SizedBox(height: 6.h),
                 CustomElevatedButton(
                   text: AppText.create,
                   onPressed: () {
                     _submit();
                   },
                 ),
-                SizedBox(height: 15.h),
+                SizedBox(height: 12.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -186,9 +204,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void dispose() {
-    _emailc.dispose();
-    _passwordc.dispose();
-    _phonec.dispose();
+    usernamec.dispose();
+    emailc.dispose();
+    passwordc.dispose();
+    phonec.dispose();
     super.dispose();
   }
 }

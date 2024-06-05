@@ -35,7 +35,6 @@ class _CustomTextUserFieldState extends State<CustomTextUserField> {
       height: 75.h,
       child: TextFormField(
         autocorrect: false,
-        //onSaved: (value) => _enteredUsername = value!,
         onChanged: widget.onChanged,
         validator: (value) {
           if (value == null ||

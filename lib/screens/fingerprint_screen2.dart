@@ -19,10 +19,14 @@ class _FingerPrint2State extends State<FingerPrint2> {
   void _authenticateUser(BuildContext context) async {
     bool isAuthenticated = await _fingerprintAuth.authenticate();
     if (isAuthenticated) {
-      Navigator.pushReplacement(
-          // ignore: use_build_context_synchronously
-          context,
-          MaterialPageRoute(builder: (context) => const BottomNavBar()));
+      Navigator.pushAndRemoveUntil(
+        // ignore: use_build_context_synchronously
+        context,
+        MaterialPageRoute(
+          builder: (context) => const BottomNavBar(),
+        ),
+            (route) => false,
+      );
     } else {
       setState(() {
         _authenticationFailed = true;

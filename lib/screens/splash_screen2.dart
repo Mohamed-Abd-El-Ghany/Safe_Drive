@@ -21,11 +21,12 @@ class _Splash2State extends State<Splash2> {
   navigateToHome() async {
     await Future.delayed(const Duration(milliseconds: 1500));
     // ignore: use_build_context_synchronously
-    Navigator.push(
+    Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
         builder: (context) => const FingerPrint2(),
       ),
+          (route) => false,
     );
   }
 

@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,15 +16,19 @@ import 'congrats_screen.dart';
 final _firebase = FirebaseAuth.instance;
 
 class VerificationScreen extends StatefulWidget {
+  final String? username;
   final String? email;
   final String? password;
   final String? phone;
+  final File? selectedImage;
 
   const VerificationScreen({
     super.key,
+    required String this.username,
     required String this.email,
     required String this.password,
     required String this.phone,
+    required File this.selectedImage,
   });
 
   @override
@@ -29,6 +36,7 @@ class VerificationScreen extends StatefulWidget {
 }
 
 class _VerificationScreenState extends State<VerificationScreen> {
+
   void initState() {
     phoneAuth();
     startTimer();
@@ -36,7 +44,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
   }
 
   int counter = 120;
-
   late Timer _timer;
   String? verifId;
 
@@ -70,10 +77,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (builder) => const CongratsScreen(),
+          builder: (builder) => CongratsScreen(),
         ),
             (route) => false,
       );
+
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
@@ -92,6 +100,20 @@ class _VerificationScreenState extends State<VerificationScreen> {
       email: email,
       password: passward,
     );
+    final Reference storageRef = FirebaseStorage.instance
+        .ref()
+        .child('user_images')
+        .child('${userCredential.user!.uid}.jpg');
+    await storageRef.putFile(widget.selectedImage!);
+    final imageUrl = await storageRef.getDownloadURL(); // مهم جدا
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userCredential.user!.uid)
+        .set({
+      'username': widget.username,
+      'email' : email,
+      'image_url' : imageUrl,
+    });
   }
 
   bool _isLoading = false;
