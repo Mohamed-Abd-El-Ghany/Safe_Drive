@@ -9,7 +9,6 @@ import 'package:safedrive/screens/splash_screen2.dart';
 import '../app/app_colors.dart';
 import '../app/app_images.dart';
 import '../app/app_texts.dart';
-import '../presenation/components/custom_bottom_nav_bar.dart';
 import '../presenation/components/custom_button.dart';
 import 'login.dart';
 import 'opening1.dart';
@@ -30,23 +29,22 @@ class MyApp extends StatelessWidget {
               )
             ],
             child: MaterialApp(
-                theme: ThemeData(
-                  colorScheme: ColorScheme.fromSeed(seedColor: AppColors.teel),
-                ),
-                debugShowCheckedModeBanner: false,
-                home: const BottomNavBar(),
-              //StreamBuilder(
-              //   stream: FirebaseAuth.instance.authStateChanges(),
-              //   builder: ((context, snapshot) {
-              //     if (snapshot.hasData == true) {
-              //       return const Splash2();
-              //     }
-              //     if (snapshot.hasData == false) {
-              //       return const Splash();
-              //     }
-              //     return const LoginScreen();
-              //   }),
-              // ),
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(seedColor: AppColors.teel),
+              ),
+              debugShowCheckedModeBanner: false,
+              home: StreamBuilder(
+                stream: FirebaseAuth.instance.authStateChanges(),
+                builder: ((context, snapshot) {
+                  if (snapshot.hasData == true) {
+                    return const Splash2();
+                  }
+                  if (snapshot.hasData == false) {
+                    return const Splash();
+                  }
+                  return const LoginScreen();
+                }),
+              ),
             ),
           );
         });
