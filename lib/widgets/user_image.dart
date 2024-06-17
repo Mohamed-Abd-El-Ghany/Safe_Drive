@@ -45,7 +45,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
             onPressed: _pickedImage,
             icon: const Icon(Icons.add_photo_alternate_rounded),
             iconSize: 60,
-            color: AppColors.black,
+            color: AppColors.teel,
           ),
         ),
         const SizedBox(height: 10,),

@@ -9,8 +9,12 @@ import 'package:safedrive/screens/splash_screen2.dart';
 import '../app/app_colors.dart';
 import '../app/app_images.dart';
 import '../app/app_texts.dart';
+import '../data/cubit/maps_cubit/maps_cubit.dart';
+import '../domain/repository/maps_repo.dart';
+import '../domain/webservices/places_webservices.dart';
 import '../presenation/components/custom_button.dart';
 import 'login.dart';
+import 'onbaording.dart';
 import 'opening1.dart';
 
 class MyApp extends StatelessWidget {
@@ -26,25 +30,33 @@ class MyApp extends StatelessWidget {
             providers: [
               BlocProvider(
                 create: (context) => EmergencyItemCubit(),
-              )
+              ),
+              BlocProvider(
+                create: (context) => MapsCubit(
+                  MapsRepository(
+                    PlacesWebservices(),
+                  ),
+                ),
+              ),
             ],
             child: MaterialApp(
               theme: ThemeData(
                 colorScheme: ColorScheme.fromSeed(seedColor: AppColors.teel),
               ),
               debugShowCheckedModeBanner: false,
-              home: StreamBuilder(
-                stream: FirebaseAuth.instance.authStateChanges(),
-                builder: ((context, snapshot) {
-                  if (snapshot.hasData == true) {
-                    return const Splash2();
-                  }
-                  if (snapshot.hasData == false) {
-                    return const Splash();
-                  }
-                  return const LoginScreen();
-                }),
-              ),
+              home: const LoginScreen(),
+              // StreamBuilder(
+              //   stream: FirebaseAuth.instance.authStateChanges(),
+              //   builder: ((context, snapshot) {
+              //     if (snapshot.hasData == true) {
+              //       return const Splash2();
+              //     }
+              //     if (snapshot.hasData == false) {
+              //       return const Splash();
+              //     }
+              //     return const LoginScreen();
+              //   }),
+              // ),
             ),
           );
         });
@@ -94,7 +106,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.only(
                     left: 40,
                   ),
-                  child: Image.asset(imageUrl, fit: BoxFit.fill),
+                  child: Image.asset(
+                    imageUrl,
+                    fit: BoxFit.fill,
+                  ),
                 );
               }).toList(),
             ),
@@ -114,12 +129,10 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               AppText.before,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-            ),
-            const Text(
-              AppText.remember,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             SizedBox(height: 50.h),
             CustomButton(

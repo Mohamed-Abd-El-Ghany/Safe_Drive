@@ -69,14 +69,6 @@ class _Screen1State extends State<Screen1> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            const Text(
-              AppText.a,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
             SizedBox(
               height: 50.h,
             ),
