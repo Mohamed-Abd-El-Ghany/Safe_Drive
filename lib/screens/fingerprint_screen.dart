@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../app/app_colors.dart';
 import 'package:local_auth/local_auth.dart';
-import 'myapp.dart';
+
+import 'onbaording.dart';
 
 class FingerPrint extends StatefulWidget {
   const FingerPrint({super.key});
@@ -20,9 +21,12 @@ class _FingerPrintState extends State<FingerPrint> {
     bool isAuthenticated = await _fingerprintAuth.authenticate();
     if (isAuthenticated) {
       Navigator.pushReplacement(
-          // ignore: use_build_context_synchronously
-          context,
-          MaterialPageRoute(builder: (context) => const MyHomePage()));
+        // ignore: use_build_context_synchronously
+        context,
+        MaterialPageRoute(
+          builder: (context) => const OnBaordingScreen(),
+        ),
+      );
     } else {
       setState(() {
         _authenticationFailed = true;

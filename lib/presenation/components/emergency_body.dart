@@ -33,13 +33,10 @@ class _EmergencyBodyState extends State<EmergencyBody> {
               child: CircleAvatar(
                 radius: 100.r,
                 backgroundColor: AppColors.white,
-                child: const Padding(
-                  padding: EdgeInsets.only(top: 3),
-                  child: Icon(
-                    CupertinoIcons.person_alt_circle,
-                    size: 225,
-                    color: AppColors.black,
-                  ),
+                child: const Icon(
+                  CupertinoIcons.person_alt_circle,
+                  size: 210,
+                  color: AppColors.black,
                 ),
               ),
             ),

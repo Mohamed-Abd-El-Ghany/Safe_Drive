@@ -28,8 +28,48 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
       showDialog(
         context: context,
         builder: (context) {
-          return const AlertDialog(
-            content: Text('Password reset link sent! \n Check your email'),
+          return AlertDialog(
+            backgroundColor: AppColors.latte1,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(30.r),
+              ),
+            ),
+            content: const Padding(
+              padding: EdgeInsets.all(10),
+              child: Text(
+                'Password reset link sent! \n Check your email',
+                textAlign: TextAlign.center,
+              ),
+            ),
+            actions: [
+              Center(
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    height: 48.h,
+                    width: 267.w,
+                    decoration: BoxDecoration(
+                      color: AppColors.teel,
+                      borderRadius: BorderRadius.circular(30.r),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'OK',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 15.w,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           );
         },
       );
@@ -62,8 +102,10 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                   maxHeight: MediaQuery.of(context).size.height.h),
               backgroundColor: AppColors.latte1,
               shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(70.r))),
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(70.r),
+                ),
+              ),
               context: context,
               builder: (context) {
                 return SizedBox(

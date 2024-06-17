@@ -1,9 +1,8 @@
 class AppText {
-  static const String before = 'Before you hit the road,';
-  static const String remember = 'remember: safety first.';
-  static const String let = 'Let\'s make every journey';
+  static const String before = 'Before you hit the road,\nremember: safety first.';
+  static const String let = 'Let\'s make every journey\na safe one together. 🚗💨';
   static const String let2 = 'let\'s get started';
-  static const String a = 'a safe one together. 🚗💨';
+  //static const String let2 = 'let\'s get started';
   static const String safe = 'Safe Drive';
   static const String face = 'Face ID';
   static const String done = 'Done';
@@ -15,6 +14,7 @@ class AppText {
   static const String emergencyBox = 'emergency_box';
   static const String your = 'Your AI Guardian On The Road';
   static const String next = 'Next';
+  //static const String next = 'Next';
   static const String email = 'Email';
   static const String password = 'Password';
   static const String confirmPassword = 'Confirm Password';
