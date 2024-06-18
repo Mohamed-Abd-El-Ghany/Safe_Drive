@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../screens/login.dart';
@@ -29,4 +30,19 @@ class OnBoardingController extends GetxController {
       pageController.jumpToPage(page);
     }
   }
+=======
+import 'package:get/get.dart';
+
+class OnBoardingController extends GetxController{
+  static OnBoardingController get instance => Get.find();
+
+
+  void updatePageIndicator(index) {}
+
+  void dotNavigationClick(index) {}
+
+  void nextPage() {}
+
+  void skipPage() {}
+>>>>>>> origin/master
 }
