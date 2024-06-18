@@ -9,7 +9,7 @@ import '../presenation/components/custom_home_container.dart';
 import 'notification_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required void Function(int index) navigateToPage,  });
 
   @override
   Widget build(BuildContext context) {

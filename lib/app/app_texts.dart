@@ -7,6 +7,7 @@ class AppText {
   static const String face = 'Face ID';
   static const String done = 'Done';
   static const String emergency = 'Emergency';
+  static const String ambulance = 'Ambulance';
   static const String addNewFaceId = 'Add New Face ID';
   static const String add = 'Add';
   static const String language = 'Language';
