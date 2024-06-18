@@ -1,17 +1,9 @@
-<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:safedrive/app/app_images.dart';
 import 'package:safedrive/presenation/components/onboarding_controllers.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-=======
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:safedrive/app/app_images.dart';
-
->>>>>>> origin/master
 import '../app/app_colors.dart';
 import '../app/app_texts.dart';
 import 'login.dart';
@@ -21,21 +13,15 @@ class OnBaordingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     final controller = Get.put(OnBoardingController());
-=======
->>>>>>> origin/master
     return Scaffold(
       backgroundColor: AppColors.latte0,
       body: Center(
         child: Stack(
           children: [
             PageView(
-<<<<<<< HEAD
               controller: controller.pageController,
               onPageChanged: controller.updatePageIndicator,
-=======
->>>>>>> origin/master
               children: const [
                 OnBoardingPage(
                   image: AppImages.pic3,
@@ -52,17 +38,9 @@ class OnBaordingScreen extends StatelessWidget {
                 ),
               ],
             ),
-<<<<<<< HEAD
             const OnBoardingSkip(),
             const Dots(),
             const NavBottom(),
-=======
-
-
-            const OnBoardingSkip(),
-
-
->>>>>>> origin/master
           ],
         ),
       ),
@@ -70,7 +48,6 @@ class OnBaordingScreen extends StatelessWidget {
   }
 }
 
-<<<<<<< HEAD
 class NavBottom extends StatelessWidget {
   const NavBottom({
     super.key,
@@ -120,8 +97,6 @@ class Dots extends StatelessWidget {
   }
 }
 
-=======
->>>>>>> origin/master
 class OnBoardingSkip extends StatelessWidget {
   const OnBoardingSkip({
     super.key,
@@ -147,11 +122,7 @@ class OnBoardingSkip extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16,
-<<<<<<< HEAD
             color: AppColors.black,
-=======
-            color: AppColors.black
->>>>>>> origin/master
           ),
         ),
       ),
@@ -187,13 +158,7 @@ class OnBoardingPage extends StatelessWidget {
             height: 320,
           ),
         ),
-<<<<<<< HEAD
         SizedBox(height: 30.h),
-=======
-        SizedBox(
-          height: 30.h,
-        ),
->>>>>>> origin/master
         Text(
           title,
           textAlign: TextAlign.center,
@@ -232,13 +197,7 @@ class OnBoardingPage2 extends StatelessWidget {
           width: 400.w,
           height: 428.h,
         ),
-<<<<<<< HEAD
         SizedBox(height: 30.h),
-=======
-        SizedBox(
-          height: 30.h,
-        ),
->>>>>>> origin/master
         Text(
           title,
           textAlign: TextAlign.center,
@@ -259,7 +218,4 @@ class OnBoardingPage2 extends StatelessWidget {
     );
   }
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
