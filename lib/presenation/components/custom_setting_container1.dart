@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safedrive/app/app_texts.dart';
 import '../../app/app_colors.dart';
 import '../../screens/notification_screen.dart';
-import '../../screens/profile_screen.dart';
 
 class CustomSettingContainer1 extends StatelessWidget {
   const CustomSettingContainer1({
@@ -14,6 +13,7 @@ class CustomSettingContainer1 extends StatelessWidget {
     required this.firstText,
     required this.secondText,
     required this.thirdText,
+    required this.navigateToPage,
   });
 
   final IconData firstIcon;
@@ -22,6 +22,7 @@ class CustomSettingContainer1 extends StatelessWidget {
   final String firstText;
   final String secondText;
   final String thirdText;
+  final Function(int) navigateToPage;
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +44,9 @@ class CustomSettingContainer1 extends StatelessWidget {
               horizontal: 6.w,
               vertical: 6.h,
             ),
-            child: InkWell(
+            child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (builder) => const ProfileScreen(),
-                  ),
-                );
+                navigateToPage(1);
               },
               child: Row(
                 children: [

@@ -37,6 +37,7 @@ class VerificationScreen extends StatefulWidget {
 
 class _VerificationScreenState extends State<VerificationScreen> {
 
+  @override
   void initState() {
     phoneAuth();
     startTimer();
@@ -65,23 +66,72 @@ class _VerificationScreenState extends State<VerificationScreen> {
     });
   }
 
-  void _submit2() async {
-    setState(() {});
+  Future<void> _submit2() async {
     try {
+      correct = true;
+      _isLoading = true;
       await signUser(widget.email!, widget.password!);
+      // Navigator.pushAndRemoveUntil(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (builder) => const CongratsScreen(),
+      //   ),
+      //       (route) => false,
+      // );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(
+      //     content: Text('Authentication success.'),
+      //   ),
+      // );
+    } on FirebaseAuthException catch (e) {
+      // ScaffoldMessenger.of(context).clearSnackBars();
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //     content: Text(e.message ?? 'Authentication failed.'),
+      //   ),
+      // );
+    }
+    // setState(() {
+    //   _isLoading = false;
+    // });
+  }
+
+  Future<void> signUser(String email, String passward) async {
+    try {
+      final UserCredential userCredential =
+      await _firebase.createUserWithEmailAndPassword(
+        email: email,
+        password: passward,
+      );
+      final Reference storageRef = FirebaseStorage.instance
+          .ref()
+          .child('user_images')
+          .child('${userCredential.user!.uid}.jpg');
+      await storageRef.putFile(widget.selectedImage!);
+      final imageUrl = await storageRef.getDownloadURL(); // مهم جدا
+      setState(() {
+        _isLoading = false;
+      });
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (builder) => const CongratsScreen(),
+        ),
+            (route) => false,
+      );
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Authentication success.'),
         ),
       );
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (builder) => CongratsScreen(),
-        ),
-            (route) => false,
-      );
-
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .set({
+        'username': widget.username,
+        'email': email,
+        'image_url': imageUrl,
+      });
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
@@ -90,30 +140,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
         ),
       );
     }
-    _isLoading = false;
-    setState(() {});
-  }
-
-  Future<void> signUser(String email, String passward) async {
-    final UserCredential userCredential =
-    await _firebase.createUserWithEmailAndPassword(
-      email: email,
-      password: passward,
-    );
-    final Reference storageRef = FirebaseStorage.instance
-        .ref()
-        .child('user_images')
-        .child('${userCredential.user!.uid}.jpg');
-    await storageRef.putFile(widget.selectedImage!);
-    final imageUrl = await storageRef.getDownloadURL(); // مهم جدا
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userCredential.user!.uid)
-        .set({
-      'username': widget.username,
-      'email' : email,
-      'image_url' : imageUrl,
-    });
+    // setState(() {
+    //   _isLoading = false;
+    // });
   }
 
   bool _isLoading = false;
@@ -219,6 +248,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
     super.dispose();
   }
 
+
   void phoneAuth() async {
     try {
       await _firebase.verifyPhoneNumber(
@@ -258,11 +288,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
         verificationId: verifId!,
         smsCode: smsCode,
       );
-      await _firebase.signInWithCredential(credential) .then((value) {
+      await _firebase.signInWithCredential(credential).then((value) {
         if (value.user != null) {
           setState(() {
-            correct = true;
-            _isLoading = true;
             _submit2();
           });
         }
@@ -318,3 +346,4 @@ Widget myInputBox(BuildContext context, TextEditingController controller, bool c
     ),
   );
 }
+

@@ -6,7 +6,8 @@ import '../app/app_colors.dart';
 import '../app/app_texts.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final Function(int) navigateToPage;
+  const ProfileScreen({super.key, required this.navigateToPage, });
 
   @override
   Widget build(BuildContext context) {

@@ -24,7 +24,10 @@ class CustomElevatedButton extends StatelessWidget {
           AppColors.teel,
         ),
         fixedSize: MaterialStatePropertyAll(
-          Size(150.w, 50.h),
+          Size(
+            150.w,
+            50.h,
+          ),
         ),
       ),
       child: isLoading

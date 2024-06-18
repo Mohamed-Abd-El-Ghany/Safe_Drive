@@ -166,33 +166,34 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: _submit,
                     ),
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 1.w,
-                          color: AppColors.black,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 100.h, horizontal: 10.w),
-                        child: const Text(
-                          AppText.or,
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 1.w,
-                          color: AppColors.black,
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: Divider(
+                  //         thickness: 1.w,
+                  //         color: AppColors.black,
+                  //       ),
+                  //     ),
+                  //     Padding(
+                  //       padding: EdgeInsets.symmetric(
+                  //           vertical: 100.h, horizontal: 10.w),
+                  //       child: const Text(
+                  //         AppText.or,
+                  //         style: TextStyle(
+                  //           color: AppColors.white,
+                  //           fontWeight: FontWeight.bold,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     Expanded(
+                  //       child: Divider(
+                  //         thickness: 1.w,
+                  //         color: AppColors.black,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  SizedBox(height: 280.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 30.w),
                     child: Row(

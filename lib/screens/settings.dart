@@ -7,9 +7,13 @@ import 'package:safedrive/presenation/components/custom_setting_container3.dart'
 import '../presenation/components/custom_setting_container1.dart';
 import '../presenation/components/custom_setting_container2.dart';
 
-
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+  final Function(int) navigateToPage;
+
+  const SettingsScreen({
+    super.key,
+    required this.navigateToPage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +54,14 @@ class SettingsScreen extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-              child: const CustomSettingContainer1(
+              child: CustomSettingContainer1(
                 firstIcon: Icons.person,
                 firstText: AppText.editProfile,
                 secondIcon: Icons.security,
                 secondText: AppText.security,
                 thirdIcon: CupertinoIcons.bell_fill,
                 thirdText: AppText.notification,
+                navigateToPage: navigateToPage,
               ),
             ),
             SizedBox(height: 20.h),
