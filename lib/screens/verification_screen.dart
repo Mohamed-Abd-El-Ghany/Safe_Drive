@@ -36,7 +36,6 @@ class VerificationScreen extends StatefulWidget {
 }
 
 class _VerificationScreenState extends State<VerificationScreen> {
-
   @override
   void initState() {
     phoneAuth();
@@ -52,13 +51,12 @@ class _VerificationScreenState extends State<VerificationScreen> {
     setState(() {
       counter = 120;
     });
-    _timer =Timer.periodic(const Duration(seconds: 1),(timer){
-      if(!mounted || counter == 0)
-      {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!mounted || counter == 0) {
         timer.cancel();
-      }else {
-        setState((){
-          if (counter > 0){
+      } else {
+        setState(() {
+          if (counter > 0) {
             counter--;
           }
         });
@@ -71,29 +69,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
       correct = true;
       _isLoading = true;
       await signUser(widget.email!, widget.password!);
-      // Navigator.pushAndRemoveUntil(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (builder) => const CongratsScreen(),
-      //   ),
-      //       (route) => false,
-      // );
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   const SnackBar(
-      //     content: Text('Authentication success.'),
-      //   ),
-      // );
+
     } on FirebaseAuthException catch (e) {
-      // ScaffoldMessenger.of(context).clearSnackBars();
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(
-      //     content: Text(e.message ?? 'Authentication failed.'),
-      //   ),
-      // );
+
     }
-    // setState(() {
-    //   _isLoading = false;
-    // });
+
   }
 
   Future<void> signUser(String email, String passward) async {
@@ -154,7 +134,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
   TextEditingController txt5 = TextEditingController();
   TextEditingController txt6 = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
@@ -194,12 +173,12 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      myInputBox(context, txt1,correct),
-                      myInputBox(context, txt2,correct),
-                      myInputBox(context, txt3,correct),
-                      myInputBox(context, txt4,correct),
-                      myInputBox(context, txt5,correct),
-                      myInputBox(context, txt6,correct),
+                      myInputBox(context, txt1, correct),
+                      myInputBox(context, txt2, correct),
+                      myInputBox(context, txt3, correct),
+                      myInputBox(context, txt4, correct),
+                      myInputBox(context, txt5, correct),
+                      myInputBox(context, txt6, correct),
                     ],
                   ),
                 ),
@@ -216,7 +195,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   child: Text(
                     '${AppText.resendInSec}$counter sec',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 14, color: AppColors.grey1),
+                    style:
+                    const TextStyle(fontSize: 14, color: AppColors.grey1),
                   ),
                 ),
                 Padding(
@@ -247,7 +227,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
     _timer.cancel();
     super.dispose();
   }
-
 
   void phoneAuth() async {
     try {
@@ -280,10 +259,10 @@ class _VerificationScreenState extends State<VerificationScreen> {
     }
   }
 
-
   sentCode() async {
     try {
-      String smsCode = txt1.text + txt2.text + txt3.text + txt4.text + txt5.text + txt6.text;
+      String smsCode =
+          txt1.text + txt2.text + txt3.text + txt4.text + txt5.text + txt6.text;
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verifId!,
         smsCode: smsCode,
@@ -303,7 +282,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
   }
 }
 
-Widget myInputBox(BuildContext context, TextEditingController controller, bool correct) {
+Widget myInputBox(
+    BuildContext context, TextEditingController controller, bool correct) {
   return Container(
     width: 53.w,
     height: 53.h,
@@ -339,7 +319,7 @@ Widget myInputBox(BuildContext context, TextEditingController controller, bool c
       onChanged: (value) {
         if (value.length == 1) {
           FocusScope.of(context).nextFocus();
-        } else if (value.isEmpty){
+        } else if (value.isEmpty) {
           FocusScope.of(context).previousFocus();
         }
       },

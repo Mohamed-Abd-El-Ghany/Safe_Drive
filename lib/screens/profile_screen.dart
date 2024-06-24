@@ -1,323 +1,162 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:safedrive/app/app_images.dart';
+import 'package:safedrive/presenation/components/custom_teel_container.dart';
 import '../app/app_colors.dart';
 import '../app/app_texts.dart';
+import '../presenation/components/custom_editing_profile_container.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   final Function(int) navigateToPage;
-  const ProfileScreen({super.key, required this.navigateToPage, });
+
+  const ProfileScreen({
+    super.key,
+    required this.navigateToPage,
+  });
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.latte0,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColors.teel,
-        centerTitle: true,
-        title: const Text(
-          AppText.profile,
-          style: TextStyle(
-            color: AppColors.latte0,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final User? user = FirebaseAuth.instance.currentUser;
+  final userCollection = FirebaseFirestore.instance.collection('users');
+
+  Future<void> editField(String field) async {
+    String newValue = '';
+    await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: AppColors.latte0,
+        title: Text('edit $field'),
+        content: TextField(
+          autofocus: true,
+          decoration: InputDecoration(hintText: 'Enter New $field'),
+          onChanged: (value) {
+            newValue = value;
+          },
         ),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: Icon(
-              Icons.account_circle,
-              color: AppColors.latte0,
-              size: 30,
-            ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(newValue),
+            child: const Text('Save'),
           ),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    );
+    if (newValue.trim().isNotEmpty) {
+      await userCollection.doc(user!.uid).update({field: newValue});
+    }
+  }
 
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 16.w,
-              vertical: 16.h,
-            ),
-            child: Text(
-              AppText.userProfile,
-              style: TextStyle(
-                fontSize: 16.w,
-                fontWeight: FontWeight.w600,
+  @override
+  Widget build(BuildContext context) {
+    if (user == null) {
+      return const Scaffold(
+        body: Center(
+          child: Text('No user is currently signed in'),
+        ),
+      );
+    }
+    return Scaffold(
+      backgroundColor: AppColors.latte0,
+      resizeToAvoidBottomInset: false,
+      body: StreamBuilder<DocumentSnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .doc(user!.uid)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || !snapshot.data!.exists) {
+            return const Center(child: Text('No user data found.'));
+          }
+          final userData = snapshot.data!.data() as Map<String, dynamic>;
+
+          return SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Stack(
+                    alignment: Alignment.topCenter,
+                    children: [
+                      const CustomTeelContainer(),
+                      Text(
+                        AppText.editProfile,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 26,
+                          height: 4.h,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: 130.h,
+                        ),
+                        child: CircleAvatar(
+                          backgroundColor: AppColors.latte0,
+                          backgroundImage:
+                              NetworkImage('${userData['image_url']}'),
+                          radius: 75.h,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 24.w, vertical: 4.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CustomEditingProfileContainer(
+                          text: ' ${userData['username']}',
+                          label:AppText.userName,
+                          onPressed: () => editField('username'),
+                        ),
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                        CustomEditingProfileContainer(
+                          text: '${userData['email']}',
+                          label: AppText.email,
+                          onPressed: () => editField('email'),
+                        ),
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                        CustomEditingProfileContainer(
+                          text: '${userData['phone_number']}',
+                          label: AppText.PhoneNumber,
+                          onPressed: () => editField('phone_number'),
+                        ),
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                        CustomEditingProfileContainer(
+                          text: '${userData['age']}',
+                          label: AppText.Age,
+                          onPressed:  () => editField('age'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 8.h),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: AppColors.latte0,
-                      backgroundImage: const AssetImage(
-                        AppImages.pic4,
-                      ),
-                      radius: 25.h,
-                    ),
-                    SizedBox(
-                      width: 16.w,
-                    ),
-                    Text(
-                      AppText.karlaPeter,
-                      style: TextStyle(
-                        fontSize: 14.w,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 17.w, vertical: 12.h),
-                  child: Row(
-                    children: [
-                      Icon(
-                        CupertinoIcons.phone_fill,
-                        color: AppColors.teel,
-                        size: 20.w,
-                      ),
-                      SizedBox(
-                        width: 7.w,
-                      ),
-                      Text(
-                        AppText.phoneNumber,
-                        style: TextStyle(
-                          fontSize: 14.w,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 7.w,
-                      ),
-                      Text(
-                        AppText.call012,
-                        style: TextStyle(
-                          fontSize: 14.w,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.location_city_rounded,
-                        color: AppColors.teel,
-                        size: 20.w,
-                      ),
-                      SizedBox(
-                        width: 7.w,
-                      ),
-                      Text(
-                        AppText.address,
-                        style: TextStyle(
-                          fontSize: 14.w,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 7.w,
-                      ),
-                      Text(
-                        AppText.california,
-                        style: TextStyle(
-                          fontSize: 14.w,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.cake,
-                        color: AppColors.teel,
-                        size: 20.w,
-                      ),
-                      SizedBox(
-                        width: 7.w,
-                      ),
-                      Text(
-                        AppText.birthDate,
-                        style: TextStyle(
-                          fontSize: 14.w,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 7.w,
-                      ),
-                      Text(
-                        AppText.birthDateTime,
-                        style: TextStyle(
-                          fontSize: 14.w,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.person,
-                        color: AppColors.teel,
-                        size: 20.w,
-                      ),
-                      SizedBox(
-                        width: 7.w,
-                      ),
-                      Text(
-                        AppText.age,
-                        style: TextStyle(
-                          fontSize: 14.w,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 88.h,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 16.w,
-              vertical: 16.h,
-            ),
-            child: Text(
-              AppText.carInfo,
-              style: TextStyle(
-                fontSize: 16.w,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 32.w,
-            ),
-            child: Column(
-              children: [
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.drive_eta,
-                        color: AppColors.teel,
-                        size: 20.w,
-                      ),
-                      SizedBox(
-                        width: 8.w,
-                      ),
-                      Text(
-                        AppText.carInsurance,
-                        style: TextStyle(
-                          fontSize: 14.w,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 8.w,
-                      ),
-                      // Text(
-                      //   AppText.california,
-                      //   style: TextStyle(
-                      //     fontSize: 14.w,
-                      //     fontWeight: FontWeight.w500,
-                      //   ),
-                      // ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.credit_card_rounded,
-                        color: AppColors.teel,
-                        size: 20.w,
-                      ),
-                      SizedBox(
-                        width: 8.w,
-                      ),
-                      Text(
-                        AppText.driverLicense,
-                        style: TextStyle(
-                          fontSize: 14.w,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 8.w,
-                      ),
-                      // Text(
-                      //   AppText.birthDateTime,
-                      //   style: TextStyle(
-                      //     fontSize: 14.w,
-                      //     fontWeight: FontWeight.w500,
-                      //   ),
-                      // ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.precision_manufacturing,
-                        color: AppColors.teel,
-                        size: 20.w,
-                      ),
-                      SizedBox(
-                        width: 8.w,
-                      ),
-                      Text(
-                        AppText.manufacturer,
-                        style: TextStyle(
-                          fontSize: 14.w,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
