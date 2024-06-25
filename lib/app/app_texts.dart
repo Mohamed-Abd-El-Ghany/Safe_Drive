@@ -13,6 +13,7 @@ class AppText {
   static const String language = 'Language';
   static const String kContinue = 'Continue';
   static const String emergencyBox = 'emergency_box';
+  static const String PhoneNumber = 'Phone Number ';
   static const String your = 'Your AI Guardian On The Road';
   static const String next = 'Next';
   //static const String next = 'Next';
@@ -67,7 +68,9 @@ class AppText {
   static const String terms = 'Terms & Policies';
   static const String actions = 'Actions';
   static const String age = 'Age |';
+  static const String Age = 'Age ';
   static const String address = 'Address |';
+  static const String userName = 'User Name';
   static const String manufacturer = 'Manufacturer |';
   static const String carInsurance = 'Car Insurance |';
   static const String driverLicense = 'Driver License |';
@@ -75,9 +78,9 @@ class AppText {
   static const String addface = 'Add face data \n Your face should be well-lit as well';
   static const String california = 'california';
   static const String security = 'Security';
-  static const String doYouKnowHim = 'Do You Know Him?';
-  static const String addNewUser = 'Add New User';
-  static const String reject = 'Reject';
+  static const String doYouKnow = 'Do You Know this person ?';
+  static const String accept = 'I accept to drive the car';
+  static const String reject = 'I reject to drive the car';
   static const String acceptForOnlyThisTime = 'Accept For Only This Time';
   static const String supportAbout = 'Support & About';
   static const String notification = 'Notification';

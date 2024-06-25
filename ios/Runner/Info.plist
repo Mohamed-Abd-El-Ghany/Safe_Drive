@@ -73,5 +73,16 @@
     <string>This app needs access to photos to show them on the map.</string>
     <key>NSCameraUsageDescription</key>
     <string>This app needs access to the camera to show photos on the map.</string>
+    <key>UIBackgroundModes</key>
+    <array>
+      <string>fetch</string>
+      <string>remote-notification</string>
+    </array>
+    <key>FirebaseAppDelegateProxyEnabled</key>
+    <false/>
+    <key>NSAppTransportSecurity</key>
+    <string>This app needs access to the notification.</string>
+     <key>NSAllowsArbitraryLoads</key>
+      <true/>
 </dict>
 </plist>

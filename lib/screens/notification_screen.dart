@@ -1,12 +1,75 @@
+
+/*
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:safedrive/app/app_colors.dart';
-import 'package:safedrive/app/app_images.dart';
 import 'package:safedrive/app/app_texts.dart';
-import 'package:safedrive/presenation/components/custom_notification_container.dart';
+import 'package:intl/intl.dart';
 
-class NotificationScreen extends StatelessWidget {
+class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
+
+  @override
+  NotificationScreenState createState() => NotificationScreenState();
+}
+
+class NotificationScreenState extends State<NotificationScreen> {
+  List<String> imageUrls = [];
+  List<String> imageDates = [];
+  List<Color> acceptButtonColors = [];
+  List<Color> rejectButtonColors = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchLatestImages();
+  }
+
+  Future<void> fetchLatestImages() async {
+    final ListResult result = await FirebaseStorage.instance.ref('notification_images').listAll();
+    final List<Reference> allFiles = result.items;
+
+    List<Map<String, String>> filesWithDates = [];
+    for (var file in allFiles) {
+      String url = await file.getDownloadURL();
+
+      // Fetching metadata
+      FullMetadata metadata = await file.getMetadata();
+      DateTime? timeCreated = metadata.timeCreated;
+      String date = timeCreated != null ? DateFormat('yyyy-MM-dd HH:mm').format(timeCreated) : 'Unknown date';
+
+      filesWithDates.add({'url': url, 'date': date});
+    }
+
+    // Sort files by date, newest first
+    filesWithDates.sort((a, b) => b['date']!.compareTo(a['date']!));
+
+    setState(() {
+      imageUrls = filesWithDates.map((file) => file['url']!).toList();
+      imageDates = filesWithDates.map((file) => file['date']!).toList();
+      acceptButtonColors = List<Color>.filled(imageUrls.length, Colors.transparent);
+      rejectButtonColors = List<Color>.filled(imageUrls.length, Colors.transparent);
+      isLoading = false;
+    });
+  }
+
+  void handleAcceptPress(int index) {
+    setState(() {
+      acceptButtonColors[index] = AppColors.teel;
+      rejectButtonColors[index] = Colors.transparent;
+    });
+  }
+
+  void handleRejectPress(int index) {
+    setState(() {
+      rejectButtonColors[index] = AppColors.red;
+      acceptButtonColors[index] = Colors.transparent;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,63 +109,1110 @@ class NotificationScreen extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 8.h),
-        child: ListView.separated(
-          physics: const BouncingScrollPhysics(),
-          itemBuilder: (context, index) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 15.w),
-            child: Row(
-              children: [
-                Container(
-                  width: 110.w,
-                  height: 165.h,
-                  decoration: BoxDecoration(
-                    color: AppColors.white.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(15.r),
-                    image: const DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage(
-                        AppImages.pic4,
-                      ),
-                    ),
-                  ),
-                ),
-                const Column(
-                  children: [
-                    Text(
-                      AppText.doYouKnowHim,
-                      style: TextStyle(fontSize: 15),
-                    ),
-                    CustomNotificationContainer(
-                      text: AppText.acceptForOnlyThisTime,
-                      color: AppColors.blue,
-                    ),
-                    CustomNotificationContainer(
-                      text: AppText.addNewUser,
-                      color: AppColors.teel,
-                    ),
-                    CustomNotificationContainer(
-                      text: AppText.reject,
-                      color: AppColors.red,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          separatorBuilder: (context, index) => Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 50.w,
-              vertical: 16.h,
-            ),
-            child: const Divider(
-              thickness: 2,
+        padding: EdgeInsets.symmetric(vertical: 15.h),
+        child: isLoading
+            ? const Center(
+          child: CircularProgressIndicator(),
+        )
+            : imageUrls.isEmpty
+            ? Center(
+          child: Text(
+            'لم يتم العثور على صور',
+            style: TextStyle(
+              fontSize: 18.sp,
               color: AppColors.black,
             ),
           ),
-          itemCount: 8,
+        )
+            : ListView.builder(
+          itemCount: imageUrls.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 20.h,
+                horizontal: 15.w,
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: 10.w),
+                        child: Container(
+                          width: 125.w,
+                          height: 165.h,
+                          decoration: BoxDecoration(
+                            color: AppColors.white.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(15.r),
+                            image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(imageUrls[index]),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          const Text(
+                            AppText.doYouKnow,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          ElevatedButton(
+                            onPressed: () => handleAcceptPress(index),
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 5.h,
+                                horizontal: 5.w,
+                              ),
+                              backgroundColor: acceptButtonColors[index],
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.r),
+                                side: BorderSide(
+                                  color: AppColors.teel,
+                                  width: 3.w,
+                                ),
+                              ),
+                            ),
+                            child: Container(
+                              width: 200.w,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 6.w,
+                                vertical: 6.h,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  AppText.accept,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.w,
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 15.h),
+                          ElevatedButton(
+                            onPressed: () => handleRejectPress(index),
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 5.h,
+                                horizontal: 5.w,
+                              ),
+                              backgroundColor: rejectButtonColors[index],
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.r),
+                                side: BorderSide(
+                                  color: AppColors.red,
+                                  width: 3.w,
+                                ),
+                              ),
+                            ),
+                            child: Container(
+                              width: 200.w,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 6.w,
+                                vertical: 6.h,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  AppText.reject,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.w,
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10.h),
+                  Text(
+                    imageDates[index],
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      color: AppColors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  const Divider(
+                    thickness: 2,
+                    color: AppColors.black,
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
   }
 }
+*/
+
+/*
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:safedrive/app/app_colors.dart';
+import 'package:safedrive/app/app_texts.dart';
+import 'package:intl/intl.dart';
+
+class NotificationScreen extends StatefulWidget {
+  const NotificationScreen({super.key});
+
+  @override
+  NotificationScreenState createState() => NotificationScreenState();
+}
+
+class NotificationScreenState extends State<NotificationScreen> {
+  List<String> imageUrls = [];
+  List<String> imageDates = [];
+  List<Color> acceptButtonColors = [];
+  List<Color> rejectButtonColors = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    setupFirebaseMessaging();
+    FirebaseFirestore.instance.collection('notifications').snapshots().listen((event) {
+      for (var change in event.docChanges) {
+        if (change.type == DocumentChangeType.added) {
+          _showNotification(change.doc.data()!);
+        }
+      }
+    });
+  }
+  Future<void> uploadImageAndAddToFirestore(String filePath) async {
+
+    File file = File(filePath);
+    TaskSnapshot snapshot = await FirebaseStorage.instance
+        .ref('notification_images/${file.uri.pathSegments.last}')
+        .putFile(file);
+
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+
+    await FirebaseFirestore.instance.collection('notifications').add({
+      'imageUrl': downloadUrl,
+      'timestamp': FieldValue.serverTimestamp(),
+    });
+    await FirebaseFirestore.instance.collection('messages').add({
+      'title': 'Safe Drive',
+      'body': 'There is someone who wants to drive your car. Go to notifications to see him',
+      'imageUrl': downloadUrl,
+      'timestamp': FieldValue.serverTimestamp(),
+    });
+  }
+
+  void setupFirebaseMessaging() {
+    FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+      if (message != null) {
+        print('Initial message: ${message.messageId}');
+      }
+    });
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Received a message while in the foreground: ${message.messageId}');
+      // Show notification UI here if needed
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('Message clicked!: ${message.messageId}');
+      // Navigate to specific screen if needed
+    });
+  }
+
+
+  Future<void> fetchLatestImages() async {
+    final ListResult result = await FirebaseStorage.instance.ref('notification_images').listAll();
+    final List<Reference> allFiles = result.items;
+
+    List<Map<String, String>> filesWithDates = [];
+    for (var file in allFiles) {
+      String url = await file.getDownloadURL();
+
+      // Fetching metadata
+      FullMetadata metadata = await file.getMetadata();
+      DateTime? timeCreated = metadata.timeCreated;
+      String date = timeCreated != null ? DateFormat('yyyy-MM-dd HH:mm').format(timeCreated) : 'Unknown date';
+
+      filesWithDates.add({'url': url, 'date': date});
+    }
+
+    // Sort files by date, newest first
+    filesWithDates.sort((a, b) => b['date']!.compareTo(a['date']!));
+
+    setState(() {
+      imageUrls = filesWithDates.map((file) => file['url']!).toList();
+      imageDates = filesWithDates.map((file) => file['date']!).toList();
+      acceptButtonColors = List<Color>.filled(imageUrls.length, Colors.transparent);
+      rejectButtonColors = List<Color>.filled(imageUrls.length, Colors.transparent);
+      isLoading = false;
+    });
+  }
+
+  void _showNotification(Map<String, dynamic> message) {
+    // Display notification using a package like flutter_local_notifications
+    print('New notification: ${message['imageUrl']}');
+    // Here you can add logic to display the notification to the user
+  }
+
+  void handleAcceptPress(int index) {
+    setState(() {
+      acceptButtonColors[index] = AppColors.teel;
+      rejectButtonColors[index] = Colors.transparent;
+    });
+  }
+
+  void handleRejectPress(int index) {
+    setState(() {
+      rejectButtonColors[index] = AppColors.red;
+      acceptButtonColors[index] = Colors.transparent;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.latte0,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: AppColors.teel,
+        centerTitle: true,
+        title: const Text(
+          AppText.notifications,
+          style: TextStyle(
+            color: AppColors.latte0,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        leading: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: AppColors.latte0,
+            size: 30.w,
+          ),
+        ),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: Icon(
+              Icons.notifications_none,
+              color: AppColors.latte0,
+              size: 30,
+            ),
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(vertical: 15.h),
+        child: isLoading
+            ? const Center(
+          child: CircularProgressIndicator(),
+        )
+            : imageUrls.isEmpty
+            ? Center(
+          child: Text(
+            'لم يتم العثور على صور',
+            style: TextStyle(
+              fontSize: 18.sp,
+              color: AppColors.black,
+            ),
+          ),
+        )
+            : ListView.builder(
+          itemCount: imageUrls.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 20.h,
+                horizontal: 15.w,
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: 10.w),
+                        child: Container(
+                          width: 125.w,
+                          height: 165.h,
+                          decoration: BoxDecoration(
+                            color: AppColors.white.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(15.r),
+                            image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(imageUrls[index]),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          const Text(
+                            AppText.doYouKnow,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          ElevatedButton(
+                            onPressed: () => handleAcceptPress(index),
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 5.h,
+                                horizontal: 5.w,
+                              ),
+                              backgroundColor: acceptButtonColors[index],
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.r),
+                                side: BorderSide(
+                                  color: AppColors.teel,
+                                  width: 3.w,
+                                ),
+                              ),
+                            ),
+                            child: Container(
+                              width: 200.w,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 6.w,
+                                vertical: 6.h,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  AppText.accept,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.w,
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 15.h),
+                          ElevatedButton(
+                            onPressed: () => handleRejectPress(index),
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 5.h,
+                                horizontal: 5.w,
+                              ),
+                              backgroundColor: rejectButtonColors[index],
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.r),
+                                side: BorderSide(
+                                  color: AppColors.red,
+                                  width: 3.w,
+                                ),
+                              ),
+                            ),
+                            child: Container(
+                              width: 200.w,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 6.w,
+                                vertical: 6.h,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  AppText.reject,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.w,
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10.h),
+                  Text(
+                    imageDates[index],
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      color: AppColors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  const Divider(
+                    thickness: 2,
+                    color: AppColors.black,
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+*/
+
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:safedrive/app/app_colors.dart';
+import 'package:safedrive/app/app_texts.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:workmanager/workmanager.dart';
+
+class NotificationScreen extends StatefulWidget {
+  const NotificationScreen({super.key});
+
+  @override
+  NotificationScreenState createState() => NotificationScreenState();
+}
+
+class NotificationScreenState extends State<NotificationScreen> {
+  List<String> imageUrls = [];
+  List<String> imageDates = [];
+  List<Color> acceptButtonColors = [];
+  List<Color> rejectButtonColors = [];
+  bool isLoading = true;
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+  @override
+  void initState() {
+    super.initState();
+    setupFlutterNotifications();
+    fetchLatestImages();
+
+    // Setup a listener for Firebase Storage changes
+    setupStorageListener();
+  }
+
+  void setupFlutterNotifications() {
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    const AndroidInitializationSettings initializationSettingsAndroid =
+    AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    final InitializationSettings initializationSettings =
+    InitializationSettings(android: initializationSettingsAndroid);
+
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
+
+  Future<void> fetchLatestImages() async {
+    final ListResult result = await FirebaseStorage.instance.ref('notification_images').listAll();
+    final List<Reference> allFiles = result.items;
+
+    List<Map<String, String>> filesWithDates = [];
+    for (var file in allFiles) {
+      String url = await file.getDownloadURL();
+
+      // Fetching metadata
+      FullMetadata metadata = await file.getMetadata();
+      DateTime? timeCreated = metadata.timeCreated;
+      String date = timeCreated != null ? DateFormat('yyyy-MM-dd HH:mm').format(timeCreated) : 'Unknown date';
+
+      filesWithDates.add({'url': url, 'date': date});
+    }
+
+    // Sort files by date, newest first
+    filesWithDates.sort((a, b) => b['date']!.compareTo(a['date']!));
+
+
+    setState(() {
+      imageUrls = filesWithDates.map((file) => file['url']!).toList();
+      imageDates = filesWithDates.map((file) => file['date']!).toList();
+      acceptButtonColors = List<Color>.filled(imageUrls.length, Colors.transparent);
+      rejectButtonColors = List<Color>.filled(imageUrls.length, Colors.transparent);
+      isLoading = false;
+    });
+  }
+
+  void setupStorageListener() {
+    FirebaseStorage.instance.ref('notification_images').listAll().then((ListResult result) {
+      for (var ref in result.items) {
+        ref.getMetadata().then((metadata) {
+          ref.getDownloadURL().then((url) {
+            // Display notification for each new image
+            _showNotification(url);
+          });
+        });
+      }
+    });
+  }
+
+  void _showNotification(String imageUrl) {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+    AndroidNotificationDetails(
+      'your_channel_id',
+      'your_channel_name',
+      channelDescription: 'your_channel_description',
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+
+    const NotificationDetails platformChannelSpecifics =
+    NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    flutterLocalNotificationsPlugin.show(
+      0,
+      'Safe Drive',
+      'There is someone who wants to drive your car. Go to notifications to see him',
+      platformChannelSpecifics,
+      payload: imageUrl,
+    );
+  }
+
+  void handleAcceptPress(int index) {
+    setState(() {
+      acceptButtonColors[index] = AppColors.teel;
+      rejectButtonColors[index] = Colors.transparent;
+    });
+  }
+
+  void handleRejectPress(int index) {
+    setState(() {
+      rejectButtonColors[index] = AppColors.red;
+      acceptButtonColors[index] = Colors.transparent;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.latte0,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: AppColors.teel,
+        centerTitle: true,
+        title: const Text(
+          AppText.notifications,
+          style: TextStyle(
+            color: AppColors.latte0,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        leading: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: AppColors.latte0,
+            size: 30.w,
+          ),
+        ),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: Icon(
+              Icons.notifications_none,
+              color: AppColors.latte0,
+              size: 30,
+            ),
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(vertical: 15.h),
+        child: isLoading
+            ? const Center(
+          child: CircularProgressIndicator(),
+        )
+            : imageUrls.isEmpty
+            ? Center(
+          child: Text(
+            'NO Images',
+            style: TextStyle(
+              fontSize: 18.sp,
+              color: AppColors.black,
+            ),
+          ),
+        )
+            : ListView.builder(
+          itemCount: imageUrls.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 20.h,
+                horizontal: 15.w,
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: 10.w),
+                        child: Container(
+                          width: 125.w,
+                          height: 165.h,
+                          decoration: BoxDecoration(
+                            color: AppColors.white.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(15.r),
+                            image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(imageUrls[index]),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          const Text(
+                            AppText.doYouKnow,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          ElevatedButton(
+                            onPressed: () => handleAcceptPress(index),
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 5.h,
+                                horizontal: 5.w,
+                              ),
+                              backgroundColor: acceptButtonColors[index],
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.r),
+                                side: BorderSide(
+                                  color: AppColors.teel,
+                                  width: 3.w,
+                                ),
+                              ),
+                            ),
+                            child: Container(
+                              width: 200.w,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 6.w,
+                                vertical: 6.h,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  AppText.accept,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.w,
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: () => handleRejectPress(index),
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 5.h,
+                                horizontal: 5.w,
+                              ),
+                              backgroundColor: rejectButtonColors[index],
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.r),
+                                side: BorderSide(
+                                  color: AppColors.red,
+                                  width: 3.w,
+                                ),
+                              ),
+                            ),
+                            child: Container(
+                              width: 200.w,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 6.w,
+                                vertical: 6.h,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  AppText.reject,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.w,
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            imageDates[index], // Displaying the image date
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  const Divider(
+                    thickness: 2,
+                    color: AppColors.black,
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+/*
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:workmanager/workmanager.dart';
+import 'package:safedrive/app/app_colors.dart';
+import 'package:safedrive/app/app_texts.dart';
+
+class NotificationScreen extends StatefulWidget {
+  const NotificationScreen({super.key});
+
+  @override
+  NotificationScreenState createState() => NotificationScreenState();
+}
+
+class NotificationScreenState extends State<NotificationScreen> {
+  List<String> imageUrls = [];
+  List<String> imageDates = [];
+  List<Color> acceptButtonColors = [];
+  List<Color> rejectButtonColors = [];
+  bool isLoading = true;
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+  @override
+  void initState() {
+    super.initState();
+    setupFlutterNotifications();
+    fetchLatestImages();
+
+    // Schedule a periodic task to check for new notifications
+    Workmanager().registerPeriodicTask(
+      'checkNewImages',
+      'checkNewImagesTask',
+      frequency: Duration(minutes: 15),
+    );
+  }
+
+  void setupFlutterNotifications() {
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    const AndroidInitializationSettings initializationSettingsAndroid =
+    AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    final InitializationSettings initializationSettings =
+    InitializationSettings(android: initializationSettingsAndroid);
+
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
+
+  Future<void> fetchLatestImages() async {
+    final ListResult result =
+    await FirebaseStorage.instance.ref('notification_images').listAll();
+    final List<Reference> allFiles = result.items;
+
+    List<Map<String, String>> filesWithDates = [];
+    for (var file in allFiles) {
+      String url = await file.getDownloadURL();
+
+      // Fetching metadata
+      FullMetadata metadata = await file.getMetadata();
+      DateTime? timeCreated = metadata.timeCreated;
+      String date = timeCreated != null
+          ? DateFormat('yyyy-MM-dd HH:mm').format(timeCreated)
+          : 'Unknown date';
+
+      filesWithDates.add({'url': url, 'date': date});
+    }
+
+    // Sort files by date, newest first
+    filesWithDates.sort((a, b) => b['date']!.compareTo(a['date']!));
+
+    setState(() {
+      imageUrls = filesWithDates.map((file) => file['url']!).toList();
+      imageDates = filesWithDates.map((file) => file['date']!).toList();
+      acceptButtonColors =
+      List<Color>.filled(imageUrls.length, Colors.transparent);
+      rejectButtonColors =
+      List<Color>.filled(imageUrls.length, Colors.transparent);
+      isLoading = false;
+    });
+  }
+
+  void _showNotification(String imageUrl) {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+    AndroidNotificationDetails(
+      'your_channel_id',
+      'your_channel_name',
+      channelDescription: 'your_channel_description',
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+
+    const NotificationDetails platformChannelSpecifics =
+    NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    flutterLocalNotificationsPlugin.show(
+      0,
+      'Safe Drive',
+      'There is someone who wants to drive your car. Go to notifications to see him',
+      platformChannelSpecifics,
+      payload: imageUrl,
+    );
+  }
+
+  void handleAcceptPress(int index) {
+    setState(() {
+      acceptButtonColors[index] = AppColors.teel;
+      rejectButtonColors[index] = Colors.transparent;
+    });
+  }
+
+  void handleRejectPress(int index) {
+    setState(() {
+      rejectButtonColors[index] = AppColors.red;
+      acceptButtonColors[index] = Colors.transparent;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.latte0,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: AppColors.teel,
+        centerTitle: true,
+        title: const Text(
+          AppText.notifications,
+          style: TextStyle(
+            color: AppColors.latte0,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        leading: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: AppColors.latte0,
+            size: 30.w,
+          ),
+        ),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: Icon(
+              Icons.notifications_none,
+              color: AppColors.latte0,
+              size: 30,
+            ),
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(vertical: 15.h),
+        child: isLoading
+            ? const Center(
+          child: CircularProgressIndicator(),
+        )
+            : imageUrls.isEmpty
+            ? Center(
+          child: Text(
+            'NO Images',
+            style: TextStyle(
+              fontSize: 18.sp,
+              color: AppColors.black,
+            ),
+          ),
+        )
+            : ListView.builder(
+          itemCount: imageUrls.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 20.h,
+                horizontal: 15.w,
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: 10.w),
+                        child: Container(
+                          width: 125.w,
+                          height: 165.h,
+                          decoration: BoxDecoration(
+                            color: AppColors.white.withOpacity(0.3),
+                            borderRadius:
+                            BorderRadius.circular(15.r),
+                            image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(imageUrls[index]),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          const Text(
+                            AppText.doYouKnow,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          ElevatedButton(
+                            onPressed: () =>
+                                handleAcceptPress(index),
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 5.h,
+                                horizontal: 5.w,
+                              ),
+                              backgroundColor:
+                              acceptButtonColors[index],
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(15.r),
+                                side: BorderSide(
+                                  color: AppColors.teel,
+                                  width: 3.w,
+                                ),
+                              ),
+                            ),
+                            child: Container(
+                              width: 200.w,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 6.w,
+                                vertical: 6.h,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  AppText.accept,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.w,
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: () =>
+                                handleRejectPress(index),
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 5.h,
+                                horizontal: 5.w,
+                              ),
+                              backgroundColor:
+                              rejectButtonColors[index],
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(15.r),
+                                side: BorderSide(
+                                  color: AppColors.red,
+                                  width: 3.w,
+                                ),
+                              ),
+                            ),
+                            child: Container(
+                              width: 200.w,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 6.w,
+                                vertical: 6.h,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  AppText.reject,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.w,
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            imageDates[index], // Displaying the image date
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  const Divider(
+                    thickness: 2,
+                    color: AppColors.black,
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+*/
+
+
+
