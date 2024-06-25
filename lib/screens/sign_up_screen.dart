@@ -1,5 +1,8 @@
 /*
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safedrive/app/app_colors.dart';
@@ -23,6 +26,10 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+
   void _submit() async {
     final isValid = _formKey.currentState!.validate();
     if (selectedImage == null) {
@@ -35,22 +42,46 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (!isValid || selectedImage == null) {
       return;
     }
+
     try {
+      // Create user with email and password
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(
+        email: _enteredEmail,
+        password: _enteredPassword,
+      );
+      final user = userCredential.user;
+      // Upload user image to Firebase Storage
+      final ref = _storage.ref().child('user_images').child('${user!.uid}.jpg');
+      await ref.putFile(selectedImage!);
+      final imageUrl = await ref.getDownloadURL();
+
+      // Save user data to Firestore
+      await _firestore.collection('users').doc(user.uid).set({
+        'username': _enteredUsername,
+        'email': _enteredEmail,
+        'phone_number': _enteredUserphone,
+        'image_url': imageUrl,
+      });
+
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (builder) => VerificationScreen(
-            username: usernamec.text,
-            email: emailc.text,
-            password: passwordc.text,
-            phone: phonec.text,
-            selectedImage: selectedImage!,
-          ),
+          builder: (builder) =>
+              VerificationScreen(
+                username: usernamec.text,
+                email: emailc.text,
+                password: passwordc.text,
+                phone: phonec.text,
+                selectedImage: selectedImage!,
+              ),
         ),
-        (route) => false,
+            (route) => false,
       );
     } catch (e) {
-      null;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${e.toString()}')),
+      );
     }
     _formKey.currentState!.save();
   }
