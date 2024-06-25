@@ -30,6 +30,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
+
+
   void _submit() async {
     final isValid = _formKey.currentState!.validate();
     if (selectedImage == null) {
@@ -51,6 +53,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         password: _enteredPassword,
       );
       final user = userCredential.user;
+
       // Upload user image to Firebase Storage
       final ref = _storage.ref().child('user_images').child('${user!.uid}.jpg');
       await ref.putFile(selectedImage!);
