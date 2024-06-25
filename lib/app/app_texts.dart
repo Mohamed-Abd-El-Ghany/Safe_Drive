@@ -28,7 +28,7 @@ class AppText {
   static const String name = 'Name';
   static const String phone = 'Phone (+20 0000000000) ';
   static const String phoneNumber = 'Phone Number |';
-  static const String PhoneNumber = 'Phone Number ';
+  //static const String PhoneNumber = 'Phone Number ';
   static const String birthDate = 'Birth Date |';
   static const String birthDateTime = '3/3/1990';
   static const String doNotHaveAcc = 'Don\'t have an account ?';
@@ -90,7 +90,7 @@ class AppText {
   static const String profile = 'Profile';
   static const String karlaPeter = 'Karla peter';
   static const String userProfile = 'User Profile';
-  static const String userName = 'User Name';
+  //static const String userName = 'User Name';
   static const String letsGetStart = 'Let Get Started!';
   static const String alreadyHaveAcc = 'Already have account?';
   static const String verificationCode = 'Verification Code';
