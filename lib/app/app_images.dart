@@ -12,4 +12,5 @@ class AppImages {
   static const String busPic = '${imagePath}rafiki.png';
   static const String verify = '${imagePath}verify.png';
   static const String congrats = '${imagePath}congrats.png';
+  static const String otp = '${imagePath}otp.png';
 }

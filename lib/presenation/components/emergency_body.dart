@@ -29,34 +29,34 @@ class _EmergencyBodyState extends State<EmergencyBody> {
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 50),
-              child: CircleAvatar(
-                radius: 100.r,
-                backgroundColor: AppColors.white,
-                child: const Icon(
-                  CupertinoIcons.person_alt_circle,
-                  size: 210,
-                  color: AppColors.black,
-                ),
-              ),
-            ),
-            SizedBox(height: 20.h),
-            const Text(
-              AppText.there,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const Text(
-              AppText.wants,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            SizedBox(height: 10.h),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 50),
+            //   child: CircleAvatar(
+            //     radius: 100.r,
+            //     backgroundColor: AppColors.white,
+            //     child: const Icon(
+            //       CupertinoIcons.person_alt_circle,
+            //       size: 210,
+            //       color: AppColors.black,
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(height: 20.h),
+            // const Text(
+            //   AppText.there,
+            //   style: TextStyle(
+            //     fontSize: 16,
+            //     fontWeight: FontWeight.w500,
+            //   ),
+            // ),
+            // const Text(
+            //   AppText.wants,
+            //   style: TextStyle(
+            //     fontSize: 16,
+            //     fontWeight: FontWeight.w500,
+            //   ),
+            // ),
+            // SizedBox(height: 10.h),
             Container(
               padding: EdgeInsets.symmetric(
                 horizontal: 7.w,

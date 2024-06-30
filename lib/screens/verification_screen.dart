@@ -69,17 +69,13 @@ class _VerificationScreenState extends State<VerificationScreen> {
       correct = true;
       _isLoading = true;
       await signUser(widget.email!, widget.password!);
-
-    } on FirebaseAuthException catch (e) {
-
-    }
-
+    } on FirebaseAuthException catch (e) {}
   }
 
   Future<void> signUser(String email, String passward) async {
     try {
       final UserCredential userCredential =
-      await _firebase.createUserWithEmailAndPassword(
+          await _firebase.createUserWithEmailAndPassword(
         email: email,
         password: passward,
       );
@@ -97,7 +93,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
         MaterialPageRoute(
           builder: (builder) => const CongratsScreen(),
         ),
-            (route) => false,
+        (route) => false,
       );
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -155,21 +151,24 @@ class _VerificationScreenState extends State<VerificationScreen> {
             child: Column(
               children: [
                 Image.asset(
-                  AppImages.verify,
-                  height: 200.h,
+                  AppImages.otp,
+                  height: 250.h,
                   width: MediaQuery.of(context).size.width.w,
                   fit: BoxFit.contain,
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 73.h),
+                  margin: EdgeInsets.only(top: 50.h),
                   child: const Text(
-                    AppText.otpHasSent,
+                    AppText.otpHasSentToYourPhoneNum,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.black),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 40.h),
+                  padding: EdgeInsets.only(top: 30.h),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -196,11 +195,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     '${AppText.resendInSec}$counter sec',
                     textAlign: TextAlign.center,
                     style:
-                    const TextStyle(fontSize: 14, color: AppColors.grey1),
+                        const TextStyle(fontSize: 14, color: AppColors.grey1),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 75.h),
+                  padding: EdgeInsets.only(top: 40.h),
                   child: CustomElevatedButton(
                     text: AppText.verify,
                     onPressed: () {
@@ -326,4 +325,3 @@ Widget myInputBox(
     ),
   );
 }
-

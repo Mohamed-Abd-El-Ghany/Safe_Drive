@@ -26,8 +26,9 @@ class SettingsScreen extends StatelessWidget {
         title: Text(
           AppText.settings,
           style: TextStyle(
-            color: AppColors.latte0,
-            fontSize: 20.w,
+            color: AppColors.white,
+            fontWeight: FontWeight.w500,
+            fontSize: 24.w,
           ),
         ),
         actions: [
@@ -36,7 +37,7 @@ class SettingsScreen extends StatelessWidget {
             child: Icon(
               Icons.settings,
               color: AppColors.latte0,
-              size: 30.w,
+              size: 26.w,
             ),
           ),
         ],

@@ -52,6 +52,8 @@ class AppText {
   static const String call1 = 'Call Emergency';
   static const String otpHasSent =
       'OTP has been sent to your email.\nPlease verify.';
+  static const String otpHasSentToYourPhoneNum =
+      'OTP has been sent to your phone number.\nPlease verify.';
   static const String congratulation = 'Congratulations';
   static const String yourAccVerified =
       'Your account has been verified \nsuccessfully';

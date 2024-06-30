@@ -17,12 +17,12 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: AppColors.latte0,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: AppColors.latte0,
+        backgroundColor: AppColors.teel,
         centerTitle: true,
         title: Text(
           AppText.safe,
           style: TextStyle(
-            color: Colors.black,
+            color: AppColors.white,
             fontWeight: FontWeight.w500,
             fontSize: 24.w,
           ),

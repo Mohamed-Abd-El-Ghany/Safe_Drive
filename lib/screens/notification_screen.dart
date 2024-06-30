@@ -6,6 +6,7 @@ import 'package:safedrive/app/app_colors.dart';
 import 'package:safedrive/app/app_texts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:safedrive/screens/emergency_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 
@@ -140,6 +141,10 @@ class NotificationScreenState extends State<NotificationScreen> {
       isRejectDisabled[index] = false;
     });
     saveButtonStates();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const Emergency()),
+    );
   }
 
   Future<void> saveButtonStates() async {
@@ -292,7 +297,12 @@ class NotificationScreenState extends State<NotificationScreen> {
                                             style: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 14.w,
-                                              color: AppColors.black,
+                                              color:
+                                                  acceptButtonColors[index] ==
+                                                          AppColors.teel
+                                                      ? AppColors.white
+                                                      : AppColors.black,
+                                              // AppColors.black,
                                             ),
                                           ),
                                         ),
@@ -301,7 +311,8 @@ class NotificationScreenState extends State<NotificationScreen> {
                                     const SizedBox(height: 10),
                                     ElevatedButton(
                                       onPressed: isRejectDisabled[index]
-                                          ? null : () => handleRejectPress(index),
+                                          ? null
+                                          : () => handleRejectPress(index),
                                       style: ElevatedButton.styleFrom(
                                         padding: EdgeInsets.symmetric(
                                           vertical: 5.h,
@@ -332,7 +343,12 @@ class NotificationScreenState extends State<NotificationScreen> {
                                             style: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 14.w,
-                                              color: AppColors.black,
+                                              color:
+                                                  rejectButtonColors[index] ==
+                                                          AppColors.red
+                                                      ? Colors.white
+                                                      : AppColors.black,
+                                              // AppColors.black,
                                             ),
                                           ),
                                         ),
